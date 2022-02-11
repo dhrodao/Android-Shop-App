@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">AndroidCustomSpinner</string>
+    <string name="titleText">Frutería</string>
+    <string-array name="spinnerContent">
+        <item>Plátano</item>
+        <item>Uva</item>
+        <item>Naranja</item>
+        <item>Cereza</item>
+    </string-array>
+    <string name="select_item_text">Selecciona una fruta</string>
+    <string name="item_fruit_description">Fruit item image</string>
+    <string name="quantity_text">Selecciona el número de unidades</string>
+    <string name="price_text">Precio: </string>
+    <string name="monetary_unit">€</string>
+</resources>
