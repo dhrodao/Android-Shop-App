@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AndroidCustomSpinner</string>
+    <string name="app_name">AndroidFruitSelector</string>
     <string name="titleText">Frutería</string>
     <string-array name="spinnerContent">
         <item>Plátano</item>
@@ -12,4 +12,7 @@
     <string name="quantity_text">Selecciona el número de unidades</string>
     <string name="price_text">Precio: </string>
     <string name="monetary_unit">€</string>
+    <string name="add_basket_button">Comprar</string>
+    <string name="default_price">Total: 0 €</string>
+    <string name="footer">by Daniel Hervás Rodao</string>
 </resources>

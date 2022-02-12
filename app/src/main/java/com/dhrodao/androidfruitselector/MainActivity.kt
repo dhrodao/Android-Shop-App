@@ -2,40 +2,53 @@ package com.dhrodao.androidfruitselector
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.AdapterView
-import android.widget.SeekBar
-import android.widget.TextView
-import android.widget.Toast
+import android.view.ViewGroup
+import android.widget.*
 import androidx.appcompat.widget.AppCompatSpinner
-import kotlin.properties.Delegates
 
 open class MainActivity : AppCompatActivity() {
-    private lateinit var quantityLayout : View
-    private lateinit var priceLayout : View
+    private lateinit var inflater : LayoutInflater
+
+    private lateinit var mainLayout : ViewGroup
+    private lateinit var quantityLayout : ViewGroup
+    private lateinit var priceLayout : ViewGroup
+    private lateinit var basketLayout : ViewGroup
+
+    protected var currentFruitItem : FruitItems? = null
 
     private lateinit var spinnerSelectorListener : SpinnerSelectorListener
     private lateinit var spinnerEventsListener : OnSpinnerEventsListenerImpl
 
+    protected var fruitText : String = ""
     protected var fruitPrice : Int = 0
+    protected var computedFruitPrice : Int = 0
     protected var fruitQuantity : Int = 0
+    private var basketPrice : Int = 0
 
     private lateinit var seekBar : SeekBar
+    private lateinit var addToBasketButton : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        inflater = LayoutInflater.from(this)
+
+        mainLayout = findViewById(R.id.mainLayout)
         quantityLayout = findViewById(R.id.quantity_layout)
         priceLayout = findViewById(R.id.price_layout)
+        basketLayout = findViewById(R.id.basket_container)
+
+        addToBasketButton = findViewById(R.id.add_basket_button)
 
         val customAdapter = CustomSpinnerAdapter(this, 0, FruitItems.values())
         findViewById<CustomSpinner>(R.id.fruit_spinner).apply { // Spinner
             adapter = customAdapter
             onItemSelectedListener = run {
                 spinnerSelectorListener = SpinnerSelectorListener(
-                    arrayOf(quantityLayout, priceLayout),
+                    arrayOf(quantityLayout, priceLayout, addToBasketButton),
                     FruitItems.values()
                 )
                 spinnerSelectorListener
@@ -50,6 +63,39 @@ open class MainActivity : AppCompatActivity() {
         val priceValueText = findViewById<TextView>(R.id.final_price)
         seekBar = findViewById<SeekBar>(R.id.quantity_seekbar).apply { // SeekBar
             setOnSeekBarChangeListener(CustomSeekBarListener(progressValueText, priceValueText))
+        }
+
+        addToBasketButton.setOnClickListener {
+            if (fruitQuantity > 0) {
+                val basketView = inflater.inflate(R.layout.item_fruit_basket, basketLayout, false)
+                setBasketView(basketView, currentFruitItem)
+                updateBasketPrice()
+                updateBasketPriceText()
+            }
+        }
+    }
+
+    private fun setBasketView(basketView : View, item : FruitItems?) {
+        val icon = basketView.findViewById<ImageView>(R.id.image)
+        val fruit = basketView.findViewById<TextView>(R.id.text)
+        val quantity = basketView.findViewById<TextView>(R.id.fruit_quantity)
+        val quantityText = "x$fruitQuantity"
+
+        item?.icon?.let { icon?.setImageResource(it) }
+        fruit?.text = item?.fruit
+        quantity?.text = quantityText
+
+        basketLayout.addView(basketView)
+    }
+
+    private fun updateBasketPrice() {
+        basketPrice += fruitQuantity * fruitPrice
+    }
+
+    private fun updateBasketPriceText() {
+        findViewById<TextView>(R.id.basket_price).also { textView ->
+            val basketPriceText = "Total: $basketPrice €"
+            textView.text = basketPriceText
         }
     }
 
@@ -68,7 +114,9 @@ open class MainActivity : AppCompatActivity() {
         override fun onStopTrackingTouch(seekBar: SeekBar?) {}
 
         private fun updateFruitPriceText() {
-            priceView.text = run {fruitPrice * fruitQuantity}.toString()
+            computedFruitPrice = fruitPrice * fruitQuantity
+            val priceText = "Precio: $computedFruitPrice €"
+            priceView.text = priceText
         }
     }
 
@@ -78,6 +126,9 @@ open class MainActivity : AppCompatActivity() {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             fruitQuantity = 0
             seekBar.progress = 0
+            fruitText = parent?.findViewById<TextView>(R.id.text).let { it?.text }.toString()
+
+            currentFruitItem = getFruitItem()
 
             if (position == 0) {
                 setVisibility(viewsAffected, View.INVISIBLE)
@@ -87,7 +138,6 @@ open class MainActivity : AppCompatActivity() {
 
             updateFruitPrice(position)
 
-            val fruitText : CharSequence? = parent?.findViewById<TextView>(R.id.text).let { it?.text }
             Toast.makeText(view?.context, "Selected: $fruitText", Toast.LENGTH_SHORT).show()
         }
 
@@ -105,6 +155,16 @@ open class MainActivity : AppCompatActivity() {
 
         private fun updateFruitPrice(position: Int) {
             fruitPrice = getFruitPrice(position)
+        }
+
+        private fun getFruitItem() : FruitItems? {
+            for (f in fruits){
+                if (f.fruit.lowercase() == fruitText.lowercase()){
+                    return f
+                }
+            }
+
+            return null
         }
     }
 

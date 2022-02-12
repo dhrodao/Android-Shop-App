@@ -10,15 +10,17 @@ import android.view.ViewGroup
 import android.widget.*
 
 class CustomSpinnerAdapter(context : Context,
-                           resource: Int, objects: Array<FruitItems>
+                           resource: Int, objects: Array<FruitItems>,
 ) : ArrayAdapter<FruitItems>(context, resource, objects) {
     private val layoutInflater : LayoutInflater = LayoutInflater.from(context)
+    private var basketView : View? = null
 
     // The value shown in the spinner
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var rootView : View = layoutInflater.inflate(R.layout.item_fruit, parent,false)
+        basketView = layoutInflater.inflate(R.layout.item_fruit_basket, parent,false)
 
-        getItem(position)?.let { setItemView(rootView, it) } ?:
+        getItem(position)?.let { setItemView(rootView, it); setBasketView(it) } ?:
         run { rootView = layoutInflater.inflate(R.layout.select_item, parent, false) }
 
         return rootView
@@ -77,5 +79,17 @@ class CustomSpinnerAdapter(context : Context,
         )
 
         return layerDrawable
+    }
+
+    private fun setBasketView(item : FruitItems) {
+        val icon = basketView?.findViewById<ImageView>(R.id.image)
+        val fruit = basketView?.findViewById<TextView>(R.id.text)
+
+        item.icon?.let { icon?.setImageResource(it) }
+        fruit?.text = item.fruit
+    }
+
+    fun getBasketView() : View? {
+        return basketView
     }
 }
