@@ -2,19 +2,18 @@ package com.dhrodao.androidfruitselector
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.widget.AppCompatSpinner
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 open class MainActivity : AppCompatActivity() {
-    private lateinit var inflater : LayoutInflater
-
     private lateinit var mainLayout : ViewGroup
     private lateinit var quantityLayout : ViewGroup
     private lateinit var priceLayout : ViewGroup
-    private lateinit var basketLayout : ViewGroup
+    private lateinit var basketLayout : RecyclerView
 
     private lateinit var seekBar : SeekBar
     private lateinit var spinner : CustomSpinner
@@ -28,6 +27,12 @@ open class MainActivity : AppCompatActivity() {
     private var computedFruitPrice : Double = 0.00
     private var fruitQuantity : Int = 0
     private var basketPrice : Double = 0.00
+
+    private var basketItems : ArrayList<BasketItem> = ArrayList()
+
+    private lateinit var customRecyclerAdapter : CustomRecyclerAdapter // Dynamic list so need to access from methods
+
+    data class BasketItem(val fruit : String, val icon : Int, val quantity : Int)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,22 +53,21 @@ open class MainActivity : AppCompatActivity() {
             setOnSeekBarChangeListener(CustomSeekBarListener())
         }
 
+        customRecyclerAdapter = CustomRecyclerAdapter(basketItems)
+        basketLayout.adapter = customRecyclerAdapter
+        basketLayout.layoutManager = LinearLayoutManager(this)
+
         addToBasketButton.setOnClickListener {
             if (fruitQuantity > 0) {
-                val basketView = inflater.inflate(R.layout.item_fruit_basket, basketLayout, false)
-                setBasketView(basketView, currentFruitItem)
-
+                setBasketView()
                 updateBasketPrice()
                 updateBasketPriceText()
-
                 resetDefaultValues()
             }
         }
     }
 
     private fun initComponents() {
-        inflater = LayoutInflater.from(this)
-
         mainLayout = findViewById(R.id.mainLayout)
         quantityLayout = findViewById(R.id.quantity_layout)
         priceLayout = findViewById(R.id.price_layout)
@@ -75,17 +79,12 @@ open class MainActivity : AppCompatActivity() {
         addToBasketButton = findViewById(R.id.add_basket_button)
     }
 
-    private fun setBasketView(basketView : View, item : FruitItems?) {
-        val icon = basketView.findViewById<ImageView>(R.id.image)
-        val fruit = basketView.findViewById<TextView>(R.id.text)
-        val quantity = basketView.findViewById<TextView>(R.id.fruit_quantity)
-        val quantityText = "x$fruitQuantity"
-
-        item?.icon?.let { icon?.setImageResource(it) }
-        fruit?.text = item?.fruit
-        quantity?.text = quantityText
-
-        basketLayout.addView(basketView)
+    private fun setBasketView() {
+        currentFruitItem?.let {
+            val basketItem = BasketItem(it.fruit, it.icon, fruitQuantity)
+            basketItems.add(basketItem)
+            customRecyclerAdapter.notifyItemInserted(basketItems.size - 1)
+        }
     }
 
     private fun updateBasketPrice() {
