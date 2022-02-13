@@ -16,53 +16,35 @@ open class MainActivity : AppCompatActivity() {
     private lateinit var priceLayout : ViewGroup
     private lateinit var basketLayout : ViewGroup
 
-    protected var currentFruitItem : FruitItems? = null
-
-    private lateinit var spinnerSelectorListener : SpinnerSelectorListener
-    private lateinit var spinnerEventsListener : OnSpinnerEventsListenerImpl
-
-    protected var fruitText : String = ""
-    protected var fruitPrice : Int = 0
-    protected var computedFruitPrice : Int = 0
-    protected var fruitQuantity : Int = 0
-    private var basketPrice : Int = 0
-
     private lateinit var seekBar : SeekBar
     private lateinit var addToBasketButton : Button
+    private lateinit var progressValueTextView : TextView
+    private lateinit var priceValueTextView : TextView
+
+    private var currentFruitItem : FruitItems? = null
+
+    private var fruitPrice : Double = 0.00
+    private var computedFruitPrice : Double = 0.00
+    private var fruitQuantity : Int = 0
+    private var basketPrice : Double = 0.00
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        inflater = LayoutInflater.from(this)
+        initComponents() // initialize late init variables
 
-        mainLayout = findViewById(R.id.mainLayout)
-        quantityLayout = findViewById(R.id.quantity_layout)
-        priceLayout = findViewById(R.id.price_layout)
-        basketLayout = findViewById(R.id.basket_container)
-
-        addToBasketButton = findViewById(R.id.add_basket_button)
-
-        val customAdapter = CustomSpinnerAdapter(this, 0, FruitItems.values())
         findViewById<CustomSpinner>(R.id.fruit_spinner).apply { // Spinner
-            adapter = customAdapter
-            onItemSelectedListener = run {
-                spinnerSelectorListener = SpinnerSelectorListener(
-                    arrayOf(quantityLayout, priceLayout, addToBasketButton),
-                    FruitItems.values()
-                )
-                spinnerSelectorListener
-            }
-            listener = run {
-                spinnerEventsListener = OnSpinnerEventsListenerImpl()
-                spinnerEventsListener
-            }
+            adapter = CustomSpinnerAdapter(this@MainActivity, 0, FruitItems.values())
+            onItemSelectedListener = SpinnerSelectorListener(
+                arrayOf(quantityLayout, priceLayout, addToBasketButton),
+                FruitItems.values()
+            )
+            listener = OnSpinnerEventsListenerImpl()
         }
 
-        val progressValueText = findViewById<TextView>(R.id.quantity_display)
-        val priceValueText = findViewById<TextView>(R.id.final_price)
-        seekBar = findViewById<SeekBar>(R.id.quantity_seekbar).apply { // SeekBar
-            setOnSeekBarChangeListener(CustomSeekBarListener(progressValueText, priceValueText))
+        seekBar = findViewById<SeekBar>(R.id.quantity_seekbar).apply {
+            setOnSeekBarChangeListener(CustomSeekBarListener())
         }
 
         addToBasketButton.setOnClickListener {
@@ -73,6 +55,20 @@ open class MainActivity : AppCompatActivity() {
                 updateBasketPriceText()
             }
         }
+    }
+
+    private fun initComponents() {
+        inflater = LayoutInflater.from(this)
+
+        mainLayout = findViewById(R.id.mainLayout)
+        quantityLayout = findViewById(R.id.quantity_layout)
+        priceLayout = findViewById(R.id.price_layout)
+        basketLayout = findViewById(R.id.basket_container)
+
+        progressValueTextView = findViewById(R.id.quantity_display)
+        priceValueTextView = findViewById(R.id.final_price)
+
+        addToBasketButton = findViewById(R.id.add_basket_button)
     }
 
     private fun setBasketView(basketView : View, item : FruitItems?) {
@@ -89,22 +85,20 @@ open class MainActivity : AppCompatActivity() {
     }
 
     private fun updateBasketPrice() {
-        basketPrice += fruitQuantity * fruitPrice
+        basketPrice += fruitQuantity.toDouble() * fruitPrice
     }
 
     private fun updateBasketPriceText() {
         findViewById<TextView>(R.id.basket_price).also { textView ->
-            val basketPriceText = "Total: $basketPrice €"
+            val basketPriceText = "Total: %.2f €".format(basketPrice)
             textView.text = basketPriceText
         }
     }
 
-    inner class CustomSeekBarListener(private val quantityView: TextView,
-                                private val priceView: TextView,
-    ) : SeekBar.OnSeekBarChangeListener {
+    inner class CustomSeekBarListener : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
             fruitQuantity = progress
-            quantityView.text = fruitQuantity.toString() // Update amount text
+            progressValueTextView.text = fruitQuantity.toString() // Update amount text
 
             updateFruitPriceText()
         }
@@ -115,14 +109,16 @@ open class MainActivity : AppCompatActivity() {
 
         private fun updateFruitPriceText() {
             computedFruitPrice = fruitPrice * fruitQuantity
-            val priceText = "Precio: $computedFruitPrice €"
-            priceView.text = priceText
+            val priceText = "Precio: %.2f €".format(computedFruitPrice)
+            priceValueTextView.text = priceText
         }
     }
 
     inner class SpinnerSelectorListener(private val viewsAffected : Array<View>,
                                         private val fruits : Array<FruitItems>
     ) : AdapterView.OnItemSelectedListener {
+        private var fruitText : String = ""
+
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             fruitQuantity = 0
             seekBar.progress = 0
@@ -137,8 +133,6 @@ open class MainActivity : AppCompatActivity() {
             setVisibility(viewsAffected, View.VISIBLE)
 
             updateFruitPrice(position)
-
-            Toast.makeText(view?.context, "Selected: $fruitText", Toast.LENGTH_SHORT).show()
         }
 
         override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -149,7 +143,7 @@ open class MainActivity : AppCompatActivity() {
             }
         }
 
-        private fun getFruitPrice(position: Int) : Int {
+        private fun getFruitPrice(position: Int) : Double {
             return fruits[position - 1].price
         }
 
