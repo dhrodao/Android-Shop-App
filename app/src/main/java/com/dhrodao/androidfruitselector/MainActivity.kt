@@ -17,6 +17,7 @@ open class MainActivity : AppCompatActivity() {
     private lateinit var basketLayout : ViewGroup
 
     private lateinit var seekBar : SeekBar
+    private lateinit var spinner : CustomSpinner
     private lateinit var addToBasketButton : Button
     private lateinit var progressValueTextView : TextView
     private lateinit var priceValueTextView : TextView
@@ -34,7 +35,7 @@ open class MainActivity : AppCompatActivity() {
 
         initComponents() // initialize late init variables
 
-        findViewById<CustomSpinner>(R.id.fruit_spinner).apply { // Spinner
+        spinner = findViewById<CustomSpinner>(R.id.fruit_spinner).apply { // Spinner
             adapter = CustomSpinnerAdapter(this@MainActivity, 0, FruitItems.values())
             onItemSelectedListener = SpinnerSelectorListener(
                 arrayOf(quantityLayout, priceLayout, addToBasketButton),
@@ -51,8 +52,11 @@ open class MainActivity : AppCompatActivity() {
             if (fruitQuantity > 0) {
                 val basketView = inflater.inflate(R.layout.item_fruit_basket, basketLayout, false)
                 setBasketView(basketView, currentFruitItem)
+
                 updateBasketPrice()
                 updateBasketPriceText()
+
+                resetDefaultValues()
             }
         }
     }
@@ -95,19 +99,28 @@ open class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun resetDefaultValues() {
+        fruitQuantity = 0
+        computedFruitPrice = 0.00
+        spinner.setSelection(0)
+    }
+
     inner class CustomSeekBarListener : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-            fruitQuantity = progress
-            progressValueTextView.text = fruitQuantity.toString() // Update amount text
-
-            updateFruitPriceText()
+            updateFruitQuantity(progress)
+            updateFruitPrice()
         }
 
         override fun onStartTrackingTouch(seekBar: SeekBar?) {}
 
         override fun onStopTrackingTouch(seekBar: SeekBar?) {}
 
-        private fun updateFruitPriceText() {
+        private fun updateFruitQuantity(progress: Int) {
+            fruitQuantity = progress
+            progressValueTextView.text = fruitQuantity.toString()
+        }
+
+        private fun updateFruitPrice() {
             computedFruitPrice = fruitPrice * fruitQuantity
             val priceText = "Precio: %.2f €".format(computedFruitPrice)
             priceValueTextView.text = priceText
