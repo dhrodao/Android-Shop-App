@@ -120,7 +120,7 @@ open class MainActivity : AppCompatActivity() {
             it.getInt("currentSpinnerItem").also { selection -> spinner.setSelection(selection) }
             it.getDouble("fruitPrice").also { price -> fruitPrice = price }
             it.getDouble("computedFruitPrice").also { computed -> computedFruitPrice = computed }
-            it.getDouble("basketPrice").also { price -> basketPrice = price }
+            it.getDouble("basketPrice").also { price -> basketPrice = price; updateBasketPriceText() }
             it.getInt("fruitQuantity").also { quantity -> fruitQuantity = quantity }
             it.getInt("currentProgress").also { progress -> seekBar.progress = progress }
         }
