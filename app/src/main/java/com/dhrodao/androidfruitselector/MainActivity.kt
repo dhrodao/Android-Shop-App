@@ -119,9 +119,8 @@ open class MainActivity : AppCompatActivity() {
             }
             it.getInt("currentSpinnerItem").also { selection -> spinner.setSelection(selection) }
             it.getDouble("fruitPrice").also { price -> fruitPrice = price }
-            it.getDouble("computedFruitPrice").also { computed -> computedFruitPrice = computed }
+            it.getInt("fruitQuantity").also { quantity -> fruitQuantity = quantity; updateFruitPrice() }
             it.getDouble("basketPrice").also { price -> basketPrice = price; updateBasketPriceText() }
-            it.getInt("fruitQuantity").also { quantity -> fruitQuantity = quantity }
             it.getInt("currentProgress").also { progress -> seekBar.progress = progress }
         }
     }
@@ -175,6 +174,17 @@ open class MainActivity : AppCompatActivity() {
         spinner.setSelection(0)
     }
 
+    private fun updateFruitPrice() {
+        computedFruitPrice = fruitPrice * fruitQuantity
+        val priceText = "Precio: %.2f €".format(computedFruitPrice)
+        priceValueTextView.text = priceText
+    }
+
+    private fun updateFruitQuantity(progress: Int) {
+        fruitQuantity = progress
+        progressValueTextView.text = fruitQuantity.toString()
+    }
+
     inner class CustomSeekBarListener : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
             updateFruitQuantity(progress)
@@ -184,17 +194,6 @@ open class MainActivity : AppCompatActivity() {
         override fun onStartTrackingTouch(seekBar: SeekBar?) {}
 
         override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-
-        private fun updateFruitQuantity(progress: Int) {
-            fruitQuantity = progress
-            progressValueTextView.text = fruitQuantity.toString()
-        }
-
-        private fun updateFruitPrice() {
-            computedFruitPrice = fruitPrice * fruitQuantity
-            val priceText = "Precio: %.2f €".format(computedFruitPrice)
-            priceValueTextView.text = priceText
-        }
     }
 
     inner class SpinnerSelectorListener(private val viewsAffected : Array<View>,
