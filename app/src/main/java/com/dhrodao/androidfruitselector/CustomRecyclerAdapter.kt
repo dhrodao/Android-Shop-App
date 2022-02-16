@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class CustomRecyclerAdapter(private val dataSet : ArrayList<MainActivity.BasketItem>) : RecyclerView.Adapter<CustomRecyclerAdapter.DataViewHolder>() {
+class CustomRecyclerAdapter(private val dataSet : ArrayList<BasketItem>) : RecyclerView.Adapter<CustomRecyclerAdapter.DataViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -29,7 +29,7 @@ class CustomRecyclerAdapter(private val dataSet : ArrayList<MainActivity.BasketI
         private val textView = itemView.findViewById<TextView>(R.id.text)
         private val fruitQuantityText = itemView.findViewById<TextView>(R.id.fruit_quantity)
 
-        fun setData(basketItem: MainActivity.BasketItem) {
+        fun setData(basketItem: BasketItem) {
             fruitImage.setImageResource(basketItem.icon)
             textView.text = basketItem.fruit
 
