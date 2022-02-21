@@ -49,7 +49,7 @@ This is a data class which holds a basket item data.
 
 ### Layouts & Drawables
 
-* Layouts: designed for vertical and horizontal views, fruit item, basket fruit item and the _Select a fruit_ selector option. Located at _res/layout_
+* Layouts: designed for vertical and landscape views, fruit item, basket fruit item and the _Select a fruit_ selector option. Located at _res/layout_
   
 * Drawables: designed every custom background, here are the fruit item pics. Located at _res/drawables_
 
