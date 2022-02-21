@@ -54,8 +54,9 @@ This is a data class which holds a basket item data.
 * Drawables: designed every custom background, here are the fruit item pics. Located at _res/drawables_
 
 ## ScreenShots
-
+### Vertical
 <img src="https://github.com/dhrodao/AndroidFruitSelector/blob/master/docs/vertical.png" alt="Demo vert" data-canonical-src="docs/screenshot.png" width="300"/>
-<img src="https://github.com/dhrodao/AndroidFruitSelector/blob/master/docs/vectical_popup.png" alt="Demo vert popup" data-canonical-src="docs/screenshot.png" width="300"/>
+<img src="https://github.com/dhrodao/AndroidFruitSelector/blob/master/docs/vertical_popup.png" alt="Demo vert popup" data-canonical-src="docs/screenshot.png" width="300"/>
+### Landscape
 <img src="https://github.com/dhrodao/AndroidFruitSelector/blob/master/docs/landscape.png" alt="Demo lands" data-canonical-src="docs/screenshot.png" width="300"/>
 <img src="https://github.com/dhrodao/AndroidFruitSelector/blob/master/docs/landscape_popup.png" alt="Demo lands popup" data-canonical-src="docs/screenshot.png" width="300"/>
