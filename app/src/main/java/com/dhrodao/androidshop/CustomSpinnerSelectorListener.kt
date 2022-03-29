@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.SeekBar
 import android.widget.TextView
+import com.dhrodao.androidshop.main.R
 
 class CustomSpinnerSelectorListener(private val viewsAffected : Array<View>,
                                     private val fruits : Array<FruitItems>,

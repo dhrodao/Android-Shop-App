@@ -1,5 +1,7 @@
 package com.dhrodao.androidshop
 
+import com.dhrodao.androidshop.main.R
+
 enum class FruitItems(val fruit : String, val icon : Int, val price : Double) {
     PINEAPPLE("Piña", R.drawable.pineapple, 1.5),
     UVA("Uva", R.drawable.uva, 0.75),
