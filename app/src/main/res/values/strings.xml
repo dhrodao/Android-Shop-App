@@ -15,4 +15,8 @@
     <string name="add_basket_button">Comprar</string>
     <string name="default_price">Total: 0 €</string>
     <string name="footer">by Daniel Hervás Rodao</string>
+
+    <string name="toolbar_inicio">Inicio</string>
+    <string name="toolbar_fruit_shop">Frutas</string>
+    <string name="shop_toolbar">Comprar</string>
 </resources>
