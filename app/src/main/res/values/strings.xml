@@ -19,4 +19,6 @@
     <string name="toolbar_inicio">Inicio</string>
     <string name="toolbar_fruit_shop">Frutas</string>
     <string name="shop_toolbar">Comprar</string>
+
+    <string name="escaparate_content_description">Escaparate vacío</string>
 </resources>
