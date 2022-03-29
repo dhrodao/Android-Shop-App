@@ -1,4 +1,4 @@
-package com.dhrodao.androidshop
+package com.dhrodao.androidshop.util
 
 import android.content.Context
 import android.graphics.Color
@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.dhrodao.androidshop.items.FruitItems
 import com.dhrodao.androidshop.main.R
 
 class CustomSpinnerAdapter(context : Context,
