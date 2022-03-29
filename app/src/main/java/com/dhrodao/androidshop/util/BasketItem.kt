@@ -1,4 +1,4 @@
-package com.dhrodao.androidshop
+package com.dhrodao.androidshop.util
 
 import android.os.Parcel
 import android.os.Parcelable

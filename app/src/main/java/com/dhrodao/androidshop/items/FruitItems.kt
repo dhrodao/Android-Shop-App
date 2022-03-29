@@ -1,4 +1,4 @@
-package com.dhrodao.androidshop
+package com.dhrodao.androidshop.items
 
 import com.dhrodao.androidshop.main.R
 

@@ -1,4 +1,4 @@
-package com.dhrodao.androidshop
+package com.dhrodao.androidshop.util
 
 import android.view.LayoutInflater
 import android.view.View

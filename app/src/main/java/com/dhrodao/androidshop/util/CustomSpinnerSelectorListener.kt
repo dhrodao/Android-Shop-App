@@ -1,14 +1,16 @@
-package com.dhrodao.androidshop
+package com.dhrodao.androidshop.util
 
 import android.view.View
 import android.widget.AdapterView
 import android.widget.SeekBar
 import android.widget.TextView
+import com.dhrodao.androidshop.items.FruitItems
+import com.dhrodao.androidshop.fruitshop.viewmodel.FruitShopViewModel
 import com.dhrodao.androidshop.main.R
 
 class CustomSpinnerSelectorListener(private val viewsAffected : Array<View>,
                                     private val fruits : Array<FruitItems>,
-                                    private val fruitShop: FruitShop,
+                                    private val fruitShopViewModel: FruitShopViewModel,
                                     private val seekBar: SeekBar
 ) : AdapterView.OnItemSelectedListener {
     private var fruitText : String = ""
@@ -37,7 +39,7 @@ class CustomSpinnerSelectorListener(private val viewsAffected : Array<View>,
         prevPosition?.let { if (it != position) onRestore = false }
 
         if (!onRestore) {
-            fruitShop.fruitQuantity = 0
+            fruitShopViewModel.updateFruitQuantity(0)
             seekBar.progress = 0
         }
 
@@ -55,7 +57,7 @@ class CustomSpinnerSelectorListener(private val viewsAffected : Array<View>,
     }
 
     private fun updateFruitPrice(position: Int) {
-        fruitShop.fruitPrice = getFruitPrice(position)
+        fruitShopViewModel.updateFruitPrice(getFruitPrice(position))
     }
 
     private fun getFruitItem() : FruitItems? {

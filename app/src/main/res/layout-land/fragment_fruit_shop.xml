@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.dhrodao.androidshop.fruitshop.viewmodel.FruitShopViewModel" />
+    </data>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -42,7 +48,7 @@
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.dhrodao.androidshop.CustomSpinner
+                    <com.dhrodao.androidshop.util.CustomSpinner
                         android:id="@+id/fruit_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -69,14 +75,15 @@
                             android:id="@+id/quantity_display"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center" />
+                            android:gravity="center"
+                            android:text="@{ viewModel.fruitQuantity.toString() }" />
 
                         <androidx.appcompat.widget.AppCompatSeekBar
                             android:id="@+id/quantity_seekbar"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:max="100"
-                            android:progress="0" />
+                            android:progress="@{viewModel.fruitQuantity}" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -91,8 +98,7 @@
                         <TextView
                             android:id="@+id/final_price"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/default_price" />
+                            android:layout_height="wrap_content" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -157,3 +163,4 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
     </RelativeLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

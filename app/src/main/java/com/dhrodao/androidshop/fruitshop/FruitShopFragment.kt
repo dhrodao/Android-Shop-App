@@ -10,10 +10,16 @@ import android.widget.Button
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatSpinner
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.dhrodao.androidshop.*
+import com.dhrodao.androidshop.fruitshop.viewmodel.FruitShopViewModel
+import com.dhrodao.androidshop.util.BasketItem
+import com.dhrodao.androidshop.items.FruitItems
 import com.dhrodao.androidshop.main.R
+import com.dhrodao.androidshop.main.databinding.FragmentFruitShopBinding
+import com.dhrodao.androidshop.util.*
 
 class FruitShopFragment : Fragment() {
     private lateinit var mainLayout : ViewGroup
@@ -32,28 +38,33 @@ class FruitShopFragment : Fragment() {
     private lateinit var customSeekBarListener: CustomSeekBarListener
     private lateinit var customSpinnerSelectorListener: CustomSpinnerSelectorListener
 
-    private lateinit var fruitShop: FruitShop
+    private lateinit var fruitShopViewModel: FruitShopViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private var binding: FragmentFruitShopBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         Log.d("FruitSelector", "onCreateView")
 
-        val view = inflater.inflate(R.layout.fragment_fruit_shop, container, false)
+        // Binding
+        binding = FragmentFruitShopBinding.inflate(inflater, container, false)
 
-        initComponents(view) // initialize late init variables
+        // ViewModel
+        fruitShopViewModel = ViewModelProvider(this)[FruitShopViewModel::class.java]
+        binding?.viewModel = fruitShopViewModel
+
+        setViewModelObservers() // Set observers for the ViewModel
+
+        initComponents() // initialize late init variables
 
         spinner.apply { // Spinner
             adapter = CustomSpinnerAdapter(context, 0, FruitItems.values())
             customSpinnerSelectorListener = CustomSpinnerSelectorListener(
                 arrayOf(quantityLayout, priceLayout, addToBasketButton),
                 FruitItems.values(),
-                fruitShop,
+                fruitShopViewModel,
                 seekBar
             )
             onItemSelectedListener = customSpinnerSelectorListener
@@ -61,98 +72,75 @@ class FruitShopFragment : Fragment() {
         }
 
         seekBar.apply { // SeekBar
-            customSeekBarListener = CustomSeekBarListener(fruitShop)
+            customSeekBarListener = CustomSeekBarListener(fruitShopViewModel)
             setOnSeekBarChangeListener(customSeekBarListener)
         }
 
         basketLayout.apply { // RecyclerView
-            customRecyclerAdapter = CustomRecyclerAdapter(fruitShop.basketItems)
+            customRecyclerAdapter = CustomRecyclerAdapter(fruitShopViewModel.basketItems.value!!)
             adapter = customRecyclerAdapter
             layoutManager = LinearLayoutManager(context)
         }
 
         addToBasketButton.setOnClickListener { // Button
-            if (fruitShop.fruitQuantity > 0) {
-                fruitShop.updateBasketPrice()
+            if (fruitShopViewModel.fruitQuantity.value!! > 0) {
+                fruitShopViewModel.updateBasketPrice()
 
                 setBasketView()
                 resetDefaultValues()
             }
         }
 
-        savedInstanceState?.let{ restoreState(it) } // recover screen status if any
+        customSpinnerSelectorListener.onRestore = true // Restore spinner state
 
-        // Inflate the layout for this fragment
-        return view
+        return binding!!.root
     }
 
-    private fun restoreState(outState: Bundle) {
-        Log.d("FruitSelector", "onRestoreInstanceState")
-
-        customSpinnerSelectorListener.onRestore = true
-
-        outState.let {
-            it.getParcelableArrayList<BasketItem>("basketRecyclerViewItems").also { restoredParcelable ->
-                if (restoredParcelable != null) {
-                    for (item in restoredParcelable){
-                        fruitShop.addToBasket(item)
-
-                        val index = fruitShop.getBasketSize() - 1
-                        customRecyclerAdapter.notifyItemInserted(index)
-                    }
-                }
-            }
-            it.getInt("currentSpinnerItem").also { selection -> spinner.setSelection(selection) }
-            it.getDouble("fruitPrice").also { price -> fruitShop.fruitPrice = price }
-            it.getDouble("computedFruitPrice").also { computedPrice -> fruitShop.computedFruitPrice = computedPrice }
-            it.getInt("fruitQuantity").also { quantity -> fruitShop.fruitQuantity = quantity }
-            it.getDouble("basketPrice").also { price -> fruitShop.basketPrice = price }
-            it.getInt("currentProgress").also { progress -> seekBar.progress = progress }
+    private fun setViewModelObservers(){
+        val computeFruitPriceObserver = Observer<Double> {
+            val totalText = "Total: %.2f €".format(it)
+            priceValueTextView.text = totalText
         }
+        fruitShopViewModel.computedFruitPrice.observe(viewLifecycleOwner, computeFruitPriceObserver)
+
+        val fruitQuantityObserver = Observer<Int> {
+            val quantityText = "Cantidad: %d".format(it)
+            progressValueTextView.text = quantityText
+        }
+        fruitShopViewModel.fruitQuantity.observe(viewLifecycleOwner, fruitQuantityObserver)
+
+        val basketPriceObserver = Observer<Double> {
+            val totalText = "Total: %.2f €".format(it)
+            totalValueTextView.text = totalText
+        }
+        fruitShopViewModel.basketPrice.observe(viewLifecycleOwner, basketPriceObserver)
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        Log.d("FruitSelector", "onSaveInstanceState")
+    private fun initComponents() {
+        mainLayout = binding!!.mainLayout
+        quantityLayout = binding!!.quantityLayout
+        priceLayout = binding!!.priceLayout
+        basketLayout = binding!!.basketContainer
 
-        outState.putParcelableArrayList("basketRecyclerViewItems", fruitShop.basketItems)
-        outState.putInt("currentSpinnerItem", spinner.selectedItemPosition)
-        outState.putDouble("fruitPrice", fruitShop.fruitPrice)
-        outState.putDouble("computedFruitPrice", fruitShop.computedFruitPrice)
-        outState.putDouble("basketPrice", fruitShop.basketPrice)
-        outState.putInt("fruitQuantity", fruitShop.fruitQuantity)
-        outState.putInt("currentProgress", seekBar.progress)
-    }
+        progressValueTextView = binding!!.quantityDisplay
+        priceValueTextView = binding!!.finalPrice
+        totalValueTextView = binding!!.basketPrice
 
-    private fun initComponents(view: View) {
-        mainLayout = view.findViewById(R.id.mainLayout)
-        quantityLayout = view.findViewById(R.id.quantity_layout)
-        priceLayout = view.findViewById(R.id.price_layout)
-        basketLayout = view.findViewById(R.id.basket_container)
-
-        progressValueTextView = view.findViewById(R.id.quantity_display)
-        priceValueTextView = view.findViewById(R.id.final_price)
-        totalValueTextView = view.findViewById(R.id.basket_price)
-
-        val fruitShopManager = FruitShopManager(priceValueTextView,
-            progressValueTextView, totalValueTextView)
-        fruitShop = FruitShop(fruitShopManager)
-
-        spinner = view.findViewById(R.id.fruit_spinner)
-        seekBar = view.findViewById(R.id.quantity_seekbar)
-        addToBasketButton = view.findViewById(R.id.add_basket_button)
+        spinner = binding!!.fruitSpinner
+        seekBar = binding!!.quantitySeekbar
+        addToBasketButton = binding!!.addBasketButton
     }
 
     private fun setBasketView() {
         customSpinnerSelectorListener.currentFruitItem?.let {
-            val basketItem = BasketItem(it.fruit, it.icon, fruitShop.fruitQuantity)
-            fruitShop.addToBasket(basketItem)
-            customRecyclerAdapter.notifyItemInserted(fruitShop.getBasketSize() - 1)
+            val basketItem = BasketItem(it.fruit, it.icon, fruitShopViewModel.fruitQuantity.value!!)
+            fruitShopViewModel.addToBasket(basketItem)
+            customRecyclerAdapter.notifyItemInserted(fruitShopViewModel.getBasketSize() - 1)
         }
     }
 
     private fun resetDefaultValues() {
-        fruitShop.resetFruit()
+        fruitShopViewModel.resetFruit()
         spinner.setSelection(0)
     }
 
