@@ -5,15 +5,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.dhrodao.androidshop.main.R
+import androidx.lifecycle.ViewModelProvider
+import com.dhrodao.androidshop.main.viewmodel.MainViewModel
+import com.dhrodao.androidshop.main.databinding.FragmentLandingBinding
 
 class LandingFragment : Fragment() {
+    private var viewModel: MainViewModel? = null
+    private var binding : FragmentLandingBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_landing, container, false)
+    ): View {
+        binding = FragmentLandingBinding.inflate(inflater, container, false)
+
+        viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+
+        // Set username text
+        binding!!.usernameText.text = viewModel!!.getUserName()
+
+        return binding!!.root
     }
 }

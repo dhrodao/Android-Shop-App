@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/landingFragment">
+    app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/landingFragment"
         android:name="com.dhrodao.androidshop.landing.LandingFragment"
@@ -21,5 +21,14 @@
         <action
             android:id="@+id/action_fruitShopFragment_to_landingFragment"
             app:destination="@id/landingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.dhrodao.androidshop.login.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_landingFragment"
+            app:destination="@id/landingFragment"
+            app:popUpToInclusive="false" />
     </fragment>
 </navigation>
