@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.dhrodao.androidshop.main.R
 
 class CustomSpinnerAdapter(context : Context,
                            resource: Int, objects: Array<FruitItems>,

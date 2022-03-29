@@ -1,15 +1,21 @@
-package com.dhrodao.androidshop
+package com.dhrodao.androidshop.fruitshop
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.SeekBar
+import android.widget.TextView
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.dhrodao.androidshop.*
+import com.dhrodao.androidshop.main.R
 
-open class MainActivity : AppCompatActivity() {
+class FruitShopFragment : Fragment() {
     private lateinit var mainLayout : ViewGroup
     private lateinit var quantityLayout : ViewGroup
     private lateinit var priceLayout : ViewGroup
@@ -22,7 +28,7 @@ open class MainActivity : AppCompatActivity() {
     private lateinit var priceValueTextView : TextView
     private lateinit var totalValueTextView : TextView
 
-    private lateinit var customRecyclerAdapter : CustomRecyclerAdapter // Dynamic list so need to access from methods
+    private lateinit var customRecyclerAdapter : CustomRecyclerAdapter
     private lateinit var customSeekBarListener: CustomSeekBarListener
     private lateinit var customSpinnerSelectorListener: CustomSpinnerSelectorListener
 
@@ -30,13 +36,21 @@ open class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    }
 
-        initComponents() // initialize late init variables
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        Log.d("FruitSelector", "onCreateView")
+
+        val view = inflater.inflate(R.layout.fragment_fruit_shop, container, false)
+
+        initComponents(view) // initialize late init variables
 
         spinner.apply { // Spinner
-            adapter = CustomSpinnerAdapter(this@MainActivity, 0, FruitItems.values())
-             customSpinnerSelectorListener = CustomSpinnerSelectorListener(
+            adapter = CustomSpinnerAdapter(context, 0, FruitItems.values())
+            customSpinnerSelectorListener = CustomSpinnerSelectorListener(
                 arrayOf(quantityLayout, priceLayout, addToBasketButton),
                 FruitItems.values(),
                 fruitShop,
@@ -54,7 +68,7 @@ open class MainActivity : AppCompatActivity() {
         basketLayout.apply { // RecyclerView
             customRecyclerAdapter = CustomRecyclerAdapter(fruitShop.basketItems)
             adapter = customRecyclerAdapter
-            layoutManager = LinearLayoutManager(this@MainActivity)
+            layoutManager = LinearLayoutManager(context)
         }
 
         addToBasketButton.setOnClickListener { // Button
@@ -65,10 +79,14 @@ open class MainActivity : AppCompatActivity() {
                 resetDefaultValues()
             }
         }
+
+        savedInstanceState?.let{ restoreState(it) } // recover screen status if any
+
+        // Inflate the layout for this fragment
+        return view
     }
 
-    override fun onRestoreInstanceState(outState: Bundle) {
-        super.onRestoreInstanceState(outState)
+    private fun restoreState(outState: Bundle) {
         Log.d("FruitSelector", "onRestoreInstanceState")
 
         customSpinnerSelectorListener.onRestore = true
@@ -95,6 +113,7 @@ open class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        Log.d("FruitSelector", "onSaveInstanceState")
 
         outState.putParcelableArrayList("basketRecyclerViewItems", fruitShop.basketItems)
         outState.putInt("currentSpinnerItem", spinner.selectedItemPosition)
@@ -105,23 +124,23 @@ open class MainActivity : AppCompatActivity() {
         outState.putInt("currentProgress", seekBar.progress)
     }
 
-    private fun initComponents() {
-        mainLayout = findViewById(R.id.mainLayout)
-        quantityLayout = findViewById(R.id.quantity_layout)
-        priceLayout = findViewById(R.id.price_layout)
-        basketLayout = findViewById(R.id.basket_container)
+    private fun initComponents(view: View) {
+        mainLayout = view.findViewById(R.id.mainLayout)
+        quantityLayout = view.findViewById(R.id.quantity_layout)
+        priceLayout = view.findViewById(R.id.price_layout)
+        basketLayout = view.findViewById(R.id.basket_container)
 
-        progressValueTextView = findViewById(R.id.quantity_display)
-        priceValueTextView = findViewById(R.id.final_price)
-        totalValueTextView = findViewById(R.id.basket_price)
+        progressValueTextView = view.findViewById(R.id.quantity_display)
+        priceValueTextView = view.findViewById(R.id.final_price)
+        totalValueTextView = view.findViewById(R.id.basket_price)
 
         val fruitShopManager = FruitShopManager(priceValueTextView,
             progressValueTextView, totalValueTextView)
         fruitShop = FruitShop(fruitShopManager)
 
-        spinner = findViewById(R.id.fruit_spinner)
-        seekBar = findViewById(R.id.quantity_seekbar)
-        addToBasketButton = findViewById(R.id.add_basket_button)
+        spinner = view.findViewById(R.id.fruit_spinner)
+        seekBar = view.findViewById(R.id.quantity_seekbar)
+        addToBasketButton = view.findViewById(R.id.add_basket_button)
     }
 
     private fun setBasketView() {

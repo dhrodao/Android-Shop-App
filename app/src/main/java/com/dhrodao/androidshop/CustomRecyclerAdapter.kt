@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.dhrodao.androidshop.main.R
 
 class CustomRecyclerAdapter(private val dataSet : ArrayList<BasketItem>) : RecyclerView.Adapter<CustomRecyclerAdapter.DataViewHolder>() {
     override fun onCreateViewHolder(
