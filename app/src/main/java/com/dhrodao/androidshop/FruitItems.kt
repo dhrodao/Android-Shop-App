@@ -1,4 +1,4 @@
-package com.dhrodao.androidfruitselector
+package com.dhrodao.androidshop
 
 enum class FruitItems(val fruit : String, val icon : Int, val price : Double) {
     PINEAPPLE("Piña", R.drawable.pineapple, 1.5),

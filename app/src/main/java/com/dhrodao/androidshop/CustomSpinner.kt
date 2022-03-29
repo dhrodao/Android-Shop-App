@@ -1,4 +1,4 @@
-package com.dhrodao.androidfruitselector
+package com.dhrodao.androidshop
 
 import android.content.Context
 import android.util.AttributeSet

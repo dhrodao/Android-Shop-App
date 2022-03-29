@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context="com.dhrodao.androidshop.MainActivity">
 
     <TextView
         android:id="@+id/titleSpinner"
@@ -22,7 +22,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.dhrodao.androidfruitselector.CustomSpinner
+    <com.dhrodao.androidshop.CustomSpinner
         android:id="@+id/fruit_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

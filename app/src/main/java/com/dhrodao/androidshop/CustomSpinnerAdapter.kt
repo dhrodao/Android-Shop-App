@@ -1,4 +1,4 @@
-package com.dhrodao.androidfruitselector
+package com.dhrodao.androidshop
 
 import android.content.Context
 import android.graphics.Color
@@ -58,7 +58,7 @@ class CustomSpinnerAdapter(context : Context,
         val icon = rootView.findViewById<ImageView>(R.id.image)
         val fruit = rootView.findViewById<TextView>(R.id.text)
 
-        item.icon?.let { icon?.setImageResource(it) }
+        item.icon.let { icon?.setImageResource(it) }
         fruit?.text = item.fruit
     }
 
@@ -85,7 +85,7 @@ class CustomSpinnerAdapter(context : Context,
         val icon = basketView?.findViewById<ImageView>(R.id.image)
         val fruit = basketView?.findViewById<TextView>(R.id.text)
 
-        item.icon?.let { icon?.setImageResource(it) }
+        item.icon.let { icon?.setImageResource(it) }
         fruit?.text = item.fruit
     }
 
