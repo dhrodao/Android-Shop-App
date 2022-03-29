@@ -26,4 +26,7 @@
     <string name="landing_text_description">
         Este es un ejemplo de una aplicación de Android que ofrece una serie de tiendas.
         Para comenzar, selecciona una tienda de la lista y comienza a comprar!</string>
+
+    <string name="username_hint">Usuario</string>
+    <string name="login_button_text">Login</string>
 </resources>

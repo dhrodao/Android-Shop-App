@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dhrodao.androidshop.util.BasketItem
+import com.dhrodao.androidshop.util.CustomRecyclerAdapter
+import com.dhrodao.androidshop.util.CustomSeekBarListener
 
 class FruitShopViewModel() : ViewModel() {
     private val _fruitPrice = MutableLiveData(0.00)
@@ -25,6 +27,10 @@ class FruitShopViewModel() : ViewModel() {
     private val _basketItems = MutableLiveData<ArrayList<BasketItem>>(ArrayList())
     val basketItems: LiveData<ArrayList<BasketItem>>
         get() = _basketItems
+
+    private val _currentSpinnerItem = MutableLiveData<Int>(0)
+    val currentSpinnerItem: LiveData<Int>
+        get() = _currentSpinnerItem
 
     fun updateFruitPrice() {
         _computedFruitPrice.value = _fruitPrice.value!! * _fruitQuantity.value!!
@@ -55,5 +61,13 @@ class FruitShopViewModel() : ViewModel() {
 
     fun addToBasket(item: BasketItem) {
         basketItems.value!!.add(item)
+    }
+
+    fun setCurrentSpinnerItem(position: Int) {
+        _currentSpinnerItem.value = position
+    }
+
+    fun getCurrentSpinnerItem() : Int {
+        return _currentSpinnerItem.value!!
     }
 }

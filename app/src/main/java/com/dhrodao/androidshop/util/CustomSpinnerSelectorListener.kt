@@ -30,18 +30,16 @@ class CustomSpinnerSelectorListener(private val viewsAffected : Array<View>,
         }
         setVisibility(viewsAffected, View.VISIBLE)
 
+        fruitShopViewModel.setCurrentSpinnerItem(position)
         updateFruitPrice(position)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {}
 
     private fun resetData(position: Int) {
-        prevPosition?.let { if (it != position) onRestore = false }
-
-        if (!onRestore) {
-            fruitShopViewModel.updateFruitQuantity(0)
-            seekBar.progress = 0
-        }
+        val fruitQuantity = fruitShopViewModel.fruitQuantity.value!!
+        fruitShopViewModel.updateFruitQuantity(fruitQuantity)
+        seekBar.progress = fruitQuantity
 
         prevPosition = position
     }

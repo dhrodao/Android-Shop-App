@@ -1,27 +1,36 @@
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.dhrodao.androidshop.landing.LandingFragment"
-    android:orientation="vertical">
-
-    <ImageView
-        android:contentDescription="@string/escaparate_content_description"
+<layout>
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:src="@drawable/escaparate"/>
+        android:layout_height="match_parent"
+        tools:context="com.dhrodao.androidshop.landing.LandingFragment"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/landing_fragment_text"
-        android:textSize="45sp"
-        android:gravity="center"/>
+        <ImageView
+            android:contentDescription="@string/escaparate_content_description"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:src="@drawable/escaparate"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="@string/landing_text_description"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/landing_fragment_text"
+            android:textSize="45sp"
+            android:gravity="center"/>
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+        <TextView
+            android:id="@+id/username_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/landing_text_description"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>
