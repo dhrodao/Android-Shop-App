@@ -1,4 +1,4 @@
-package com.dhrodao.androidfruitselector
+package com.dhrodao.androidshop
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

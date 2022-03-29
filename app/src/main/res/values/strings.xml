@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AndroidFruitSelector</string>
+    <string name="app_name">Android-Shop-App</string>
     <string name="titleText">Frutería</string>
     <string-array name="spinnerContent">
         <item>Plátano</item>

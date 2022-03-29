@@ -1,4 +1,4 @@
-package com.dhrodao.androidfruitselector
+package com.dhrodao.androidshop
 
 class FruitShop(private val manager: FruitShopManager) {
     var fruitPrice : Double = 0.00
