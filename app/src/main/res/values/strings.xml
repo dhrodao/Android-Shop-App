@@ -21,4 +21,9 @@
     <string name="shop_toolbar">Comprar</string>
 
     <string name="escaparate_content_description">Escaparate vacío</string>
+
+    <string name="landing_fragment_text">Bienvenid@</string>
+    <string name="landing_text_description">
+        Este es un ejemplo de una aplicación de Android que ofrece una serie de tiendas.
+        Para comenzar, selecciona una tienda de la lista y comienza a comprar!</string>
 </resources>

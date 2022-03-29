@@ -3,10 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fruitShopFragment">
+    app:startDestination="@id/landingFragment">
+    <fragment
+        android:id="@+id/landingFragment"
+        android:name="com.dhrodao.androidshop.landing.LandingFragment"
+        android:label="fragment_landing"
+        tools:layout="@layout/fragment_landing" >
+        <action
+            android:id="@+id/action_landingFragment_to_fruitShopFragment"
+            app:destination="@id/fruitShopFragment" />
+    </fragment>
     <fragment
         android:id="@+id/fruitShopFragment"
         android:name="com.dhrodao.androidshop.fruitshop.FruitShopFragment"
         android:label="fragment_fruit_shop"
-        tools:layout="@layout/fragment_fruit_shop" />
+        tools:layout="@layout/fragment_fruit_shop" >
+        <action
+            android:id="@+id/action_fruitShopFragment_to_landingFragment"
+            app:destination="@id/landingFragment" />
+    </fragment>
 </navigation>
