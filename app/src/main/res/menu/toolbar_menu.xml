@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/welcomeFragment"
+        android:tooltipText="@string/toolbar_inicio"
+        android:title="@string/toolbar_inicio"/>
+
+    <item android:title="@string/shop_toolbar">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/fruitShopFragment"
+                    app:showAsAction="always"
+                    android:title="@string/toolbar_fruit_shop" />
+            </group>
+        </menu>
+    </item>
+</menu>
