@@ -19,7 +19,9 @@ open class MainActivity : AppCompatActivity() {
     private lateinit var navigationView: NavigationView
     lateinit var binding: ActivityMainBinding
 
-    lateinit var navController: NavController
+    private lateinit var navController: NavController
+
+    private var CURR_FRAGMENT: String = "CURR_FRAGMENT"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,25 +56,29 @@ open class MainActivity : AppCompatActivity() {
         val appBarConfiguration = builder.build()
         // Set the AppBar with the NavController
         toolBar.setupWithNavController(navController, appBarConfiguration)
-
-        if(savedInstanceState != null){
-            recoverActualFragment()
-        }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        saveActualFragment()
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        recoverActualFragment(savedInstanceState)
     }
 
-    private fun saveActualFragment(){
-        navController.currentDestination?.id?.let {
-            mainViewModel.setCurrentFragment(it)
-        }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        saveCurrentFragment(outState)
     }
 
-    private fun recoverActualFragment(){
-        val fragmentId = mainViewModel.getCurrentFragment()
+    private fun saveCurrentFragment(bundle: Bundle){
+        val fragmentId = getCurrentFragment()
+        bundle.putInt(CURR_FRAGMENT, fragmentId)
+    }
+
+    private fun getCurrentFragment() : Int{
+        return navController.currentDestination?.id ?: 0
+    }
+
+    private fun recoverActualFragment(bundle: Bundle){
+        val fragmentId = bundle.getInt(CURR_FRAGMENT)
         navController.navigate(fragmentId)
     }
 }
