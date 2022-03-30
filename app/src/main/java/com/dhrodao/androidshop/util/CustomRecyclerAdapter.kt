@@ -8,12 +8,17 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dhrodao.androidshop.main.R
 
-class CustomRecyclerAdapter(private val dataSet : ArrayList<BasketItem>) : RecyclerView.Adapter<CustomRecyclerAdapter.DataViewHolder>() {
+class CustomRecyclerAdapter(private val dataSet : ArrayList<BasketItem>) : RecyclerView.Adapter<CustomRecyclerAdapter.DataViewHolder>(), View.OnClickListener {
+    private lateinit var listener: View.OnClickListener
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): DataViewHolder {
         val basketView : View = LayoutInflater.from(parent.context).inflate(R.layout.item_fruit_basket, parent, false)
+
+        basketView.setOnClickListener(this)
+
         return DataViewHolder(basketView)
     }
 
@@ -32,10 +37,18 @@ class CustomRecyclerAdapter(private val dataSet : ArrayList<BasketItem>) : Recyc
 
         fun setData(basketItem: BasketItem) {
             fruitImage.setImageResource(basketItem.icon)
-            textView.text = basketItem.fruit
+            textView.text = basketItem.item
 
             val auxText = "x${basketItem.quantity}"
             fruitQuantityText.text = auxText
         }
+    }
+
+    fun setOnClickListener(listener: View.OnClickListener) {
+        this.listener = listener
+    }
+
+    override fun onClick(view: View?) {
+        this.listener.onClick(view)
     }
 }

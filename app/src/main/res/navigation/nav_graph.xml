@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_fruitShopFragment_to_landingFragment"
             app:destination="@id/landingFragment" />
+        <action
+            android:id="@+id/action_fruitShopFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -30,5 +33,17 @@
             android:id="@+id/action_loginFragment_to_landingFragment"
             app:destination="@id/landingFragment"
             app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDetailsFragment"
+        android:name="com.dhrodao.androidshop.productdetails.ProductDetailsFragment"
+        android:label="fragment_product_details"
+        tools:layout="@layout/fragment_product_details" >
+        <action
+            android:id="@+id/action_productDetailsFragment_to_fruitShopFragment"
+            app:destination="@id/fruitShopFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/fruitShopFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

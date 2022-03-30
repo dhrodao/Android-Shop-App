@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dhrodao.androidshop.fruitshop.viewmodel.FruitShopViewModel
@@ -75,6 +76,9 @@ class FruitShopFragment : Fragment() {
 
         basketLayout.apply { // RecyclerView
             customRecyclerAdapter = CustomRecyclerAdapter(fruitShopViewModel.basketItems.value!!)
+            customRecyclerAdapter.setOnClickListener{ // Go to product details
+                navigateToProductDetails(it)
+            }
             adapter = customRecyclerAdapter
             layoutManager = LinearLayoutManager(context)
         }
@@ -130,7 +134,7 @@ class FruitShopFragment : Fragment() {
 
     private fun setBasketView() {
         customSpinnerSelectorListener.currentFruitItem?.let {
-            val basketItem = BasketItem(it.fruit, it.icon, fruitShopViewModel.fruitQuantity.value!!)
+            val basketItem = BasketItem(it.fruit, it.icon, fruitShopViewModel.fruitQuantity.value!!, it.price)
             fruitShopViewModel.addToBasket(basketItem)
             customRecyclerAdapter.notifyItemInserted(fruitShopViewModel.getBasketSize() - 1)
         }
@@ -139,6 +143,12 @@ class FruitShopFragment : Fragment() {
     private fun resetDefaultValues() {
         fruitShopViewModel.resetFruit()
         spinner.setSelection(0)
+    }
+
+    private fun navigateToProductDetails(view: View) {
+        val basketItem = fruitShopViewModel.basketItems.value!![basketLayout.getChildAdapterPosition(view)]
+        fruitShopViewModel.setFruitItemSelected(basketItem)
+        findNavController().navigate(FruitShopFragmentDirections.actionFruitShopFragmentToProductDetailsFragment())
     }
 
     class OnSpinnerEventsListenerImpl : CustomSpinner.OnSpinnerEventsListener {
