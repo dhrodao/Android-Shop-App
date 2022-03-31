@@ -10,8 +10,19 @@
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/fruitShopFragment"
-                    app:showAsAction="always"
+                    app:showAsAction="ifRoom"
                     android:title="@string/toolbar_fruit_shop" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="@string/communications_toolbar">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/chatFragment"
+                    app:showAsAction="ifRoom"
+                    android:title="@string/toolbar_chat" />
             </group>
         </menu>
     </item>
