@@ -12,6 +12,9 @@
                     android:id="@+id/fruitShopFragment"
                     app:showAsAction="ifRoom"
                     android:title="@string/toolbar_fruit_shop" />
+                <item android:id="@+id/sportsShopFragment"
+                    app:showAsAction="ifRoom"
+                    android:title="@string/toolbar_sports_shop" />
             </group>
         </menu>
     </item>

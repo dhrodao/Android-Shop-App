@@ -1,7 +1,6 @@
-package com.dhrodao.androidshop.fruitshop
+package com.dhrodao.androidshop.sportsshop
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,16 +14,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.dhrodao.androidshop.util.BasketItem
-import com.dhrodao.androidshop.items.BasketItems
 import com.dhrodao.androidshop.items.ItemTypes
 import com.dhrodao.androidshop.main.R
 import com.dhrodao.androidshop.main.databinding.FragmentFruitShopBinding
+import com.dhrodao.androidshop.main.databinding.FragmentSentMessagesBinding
+import com.dhrodao.androidshop.main.databinding.FragmentSportsShopBinding
 import com.dhrodao.androidshop.util.*
 import com.dhrodao.androidshop.viewmodel.MainViewModel
 import com.dhrodao.androidshop.viewmodel.ShopViewModel
 
-class FruitShopFragment() : Fragment() {
+class SportsShopFragment : Fragment() {
+
     private lateinit var mainLayout : ViewGroup
     private lateinit var quantityLayout : ViewGroup
     private lateinit var priceLayout : ViewGroup
@@ -43,18 +43,18 @@ class FruitShopFragment() : Fragment() {
 
     private lateinit var viewModel: ShopViewModel
 
-    private var binding: FragmentFruitShopBinding? = null
+    private var binding: FragmentSportsShopBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Binding
-        binding = FragmentFruitShopBinding.inflate(inflater, container, false)
+        binding = FragmentSportsShopBinding.inflate(inflater, container, false)
 
         // ViewModel
         viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-            .fruitShopViewModel
+            .sportsShopViewModel
         binding?.viewModel = viewModel
 
         setViewModelObservers() // Set observers for the ViewModel
@@ -62,7 +62,7 @@ class FruitShopFragment() : Fragment() {
         initComponents() // initialize late init variables
 
         spinner.apply { // Spinner
-            val itemArrayList = CorrespondingSpinnerItemsRetriever.getSpinnerItems(ItemTypes.FRUIT)
+            val itemArrayList = CorrespondingSpinnerItemsRetriever.getSpinnerItems(ItemTypes.SPORT)
             adapter = CustomSpinnerAdapter(context, 0, itemArrayList)
             customSpinnerSelectorListener = CustomSpinnerSelectorListener(
                 arrayOf(binding!!.quantityLayout, binding!!.priceLayout, binding!!.addBasketButton),
@@ -180,7 +180,7 @@ class FruitShopFragment() : Fragment() {
     private fun navigateToProductDetails(view: View) {
         val basketItem = viewModel.fruitBasketItems.value!![basketLayout.getChildAdapterPosition(view)]
         viewModel.setSelectedItem(basketItem)
-        findNavController().navigate(FruitShopFragmentDirections.actionFruitShopFragmentToProductDetailsFragment(ItemTypes.FRUIT))
+        findNavController().navigate(SportsShopFragmentDirections.actionSportsShopFragmentToProductDetailsFragment(ItemTypes.SPORT))
     }
 
     class OnSpinnerEventsListenerImpl : CustomSpinner.OnSpinnerEventsListener {

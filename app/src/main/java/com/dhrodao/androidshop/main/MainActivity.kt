@@ -10,7 +10,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.dhrodao.androidshop.main.databinding.ActivityMainBinding
-import com.dhrodao.androidshop.main.viewmodel.MainViewModel
+import com.dhrodao.androidshop.viewmodel.MainViewModel
 import com.google.android.material.navigation.NavigationView
 
 open class MainActivity : AppCompatActivity() {
@@ -48,7 +48,8 @@ open class MainActivity : AppCompatActivity() {
 
         // Create a new Builder
         val builder = AppBarConfiguration.Builder(setOf(R.id.fruitShopFragment,
-            R.id.landingFragment, R.id.chatFragment, R.id.sentMessagesFragment))
+            R.id.landingFragment, R.id.chatFragment, R.id.sentMessagesFragment,
+            R.id.sportsShopFragment))
 
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         builder.setOpenableLayout(drawerLayout)

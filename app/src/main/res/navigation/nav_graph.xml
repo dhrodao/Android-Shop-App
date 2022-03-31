@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_landingFragment_to_inboxFragment"
             app:destination="@id/inboxFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_sportsShopFragment"
+            app:destination="@id/sportsShopFragment" />
     </fragment>
     <fragment
         android:id="@+id/fruitShopFragment"
@@ -36,6 +39,9 @@
         <action
             android:id="@+id/action_fruitShopFragment_to_chatFragment2"
             app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_fruitShopFragment_to_sportsShopFragment"
+            app:destination="@id/sportsShopFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -57,12 +63,19 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/fruitShopFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="itemType"
+            app:argType="com.dhrodao.androidshop.items.ItemTypes" />
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.dhrodao.androidshop.chat.ChatFragment"
         android:label="fragment_chat"
-        tools:layout="@layout/fragment_chat" />
+        tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/action_chatFragment_to_sportsShopFragment"
+            app:destination="@id/sportsShopFragment" />
+    </fragment>
     <fragment
         android:id="@+id/sentMessagesFragment"
         android:name="com.dhrodao.androidshop.sentmessages.SentMessagesFragment"
@@ -70,9 +83,24 @@
         <action
             android:id="@+id/action_sentMessagesFragment_to_landingFragment"
             app:destination="@id/landingFragment" />
+        <action
+            android:id="@+id/action_sentMessagesFragment_to_sportsShopFragment"
+            app:destination="@id/sportsShopFragment" />
     </fragment>
     <fragment
         android:id="@+id/inboxFragment"
         android:name="com.dhrodao.androidshop.inbox.InboxFragment"
-        android:label="InboxFragment" />
+        android:label="InboxFragment" >
+        <action
+            android:id="@+id/action_inboxFragment_to_sportsShopFragment"
+            app:destination="@id/sportsShopFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sportsShopFragment"
+        android:name="com.dhrodao.androidshop.sportsshop.SportsShopFragment"
+        android:label="SportsShopFragment">
+        <action
+            android:id="@+id/action_sportsShopFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
 </navigation>

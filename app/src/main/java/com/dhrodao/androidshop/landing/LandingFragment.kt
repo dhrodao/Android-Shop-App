@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import com.dhrodao.androidshop.main.R
-import com.dhrodao.androidshop.main.viewmodel.MainViewModel
+import com.dhrodao.androidshop.viewmodel.MainViewModel
 import com.dhrodao.androidshop.main.databinding.FragmentLandingBinding
 
 class LandingFragment : Fragment() {

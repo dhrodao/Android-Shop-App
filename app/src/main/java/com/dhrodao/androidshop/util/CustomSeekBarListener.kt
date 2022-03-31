@@ -1,13 +1,13 @@
 package com.dhrodao.androidshop.util
 
 import android.widget.SeekBar
-import com.dhrodao.androidshop.fruitshop.viewmodel.FruitShopViewModel
+import com.dhrodao.androidshop.viewmodel.ShopViewModel
 
-class CustomSeekBarListener(private val fruitShopViewModel: FruitShopViewModel
+class CustomSeekBarListener(private val fruitShopViewModel: ShopViewModel
 ) : SeekBar.OnSeekBarChangeListener {
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-        fruitShopViewModel.updateFruitQuantity(progress)
-        fruitShopViewModel.updateFruitPrice()
+        fruitShopViewModel.updateItemsQuantity(progress)
+        fruitShopViewModel.updatePrice()
     }
 
     override fun onStartTrackingTouch(seekBar: SeekBar?) {}

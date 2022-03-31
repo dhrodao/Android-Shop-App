@@ -7,7 +7,7 @@
         <item>Naranja</item>
         <item>Cereza</item>
     </string-array>
-    <string name="select_item_text">Selecciona una fruta</string>
+    <string name="select_item_text">Selecciona un producto</string>
     <string name="item_fruit_description">Fruit item image</string>
     <string name="quantity_text">Selecciona el número de unidades</string>
     <string name="price_text">Precio: </string>
@@ -24,6 +24,7 @@
     <string name="toolbar_chat">Chat</string>
     <string name="toolbar_messages_sent">Mensajes enviados</string>
     <string name="toolbar_inbox">Inbox</string>
+    <string name="toolbar_sports_shop">Deportes</string>
 
     <string name="escaparate_content_description">Escaparate vacío</string>
 
@@ -45,4 +46,6 @@
 
     <!-- Message layouts -->
     <string name="message_user_icon">User Icon</string>
+    <string name="sports_shop_text">Tienda de deportes</string>
+
 </resources>

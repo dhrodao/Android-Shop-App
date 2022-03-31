@@ -4,25 +4,25 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.SeekBar
 import android.widget.TextView
-import com.dhrodao.androidshop.items.FruitItems
-import com.dhrodao.androidshop.fruitshop.viewmodel.FruitShopViewModel
+import com.dhrodao.androidshop.items.BasketItems
 import com.dhrodao.androidshop.main.R
 import com.dhrodao.androidshop.main.databinding.FragmentFruitShopBinding
+import com.dhrodao.androidshop.viewmodel.ShopViewModel
 
-class CustomSpinnerSelectorListener(private val fruitShopBinding: FragmentFruitShopBinding,
-                                    private val fruits : Array<FruitItems>,
-                                    private val fruitShopViewModel: FruitShopViewModel,
+class CustomSpinnerSelectorListener(private val affectedInterfaceItems: Array<View>,
+                                    private val baskets : ArrayList<BasketItems>,
+                                    private val fruitShopViewModel: ShopViewModel,
                                     private val seekBar: SeekBar
 ) : AdapterView.OnItemSelectedListener {
     private var fruitText : String = ""
     private var prevPosition : Int? = null
-    var currentFruitItem : FruitItems? = null
+    var currentBasketItem : BasketItems? = null
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         resetData(position)
 
         fruitText = parent?.findViewById<TextView>(R.id.text).let { it?.text }.toString()
-        currentFruitItem = getFruitItem()
+        currentBasketItem = getFruitItem()
 
         if (position == 0) {
             setControlElementsVisibility(View.INVISIBLE)
@@ -36,32 +36,28 @@ class CustomSpinnerSelectorListener(private val fruitShopBinding: FragmentFruitS
     override fun onNothingSelected(parent: AdapterView<*>?) {}
 
     private fun resetData(position: Int) {
-        val fruitQuantity = fruitShopViewModel.fruitQuantity.value!!
-        fruitShopViewModel.updateFruitQuantity(fruitQuantity)
+        val fruitQuantity = fruitShopViewModel.itemsQuantity.value!!
+        fruitShopViewModel.updateItemsQuantity(fruitQuantity)
         seekBar.progress = fruitQuantity
 
         prevPosition = position
     }
 
     private fun setControlElementsVisibility(visibility : Int) {
-        fruitShopBinding.apply {
-            quantityLayout.visibility = visibility
-            priceLayout.visibility = visibility
-            addBasketButton.visibility = visibility
-        }
+        for(item in affectedInterfaceItems) item.visibility = visibility
     }
 
     private fun getFruitPrice(position: Int) : Double {
-        return fruits[position - 1].price
+        return baskets[position - 1].price
     }
 
     private fun updateFruitPrice(position: Int) {
-        fruitShopViewModel.updateFruitPrice(getFruitPrice(position))
+        fruitShopViewModel.setPrice(getFruitPrice(position))
     }
 
-    private fun getFruitItem() : FruitItems? {
-        for (f in fruits){
-            if (f.fruit.lowercase() == fruitText.lowercase()){
+    private fun getFruitItem() : BasketItems? {
+        for (f in baskets){
+            if (f.item.lowercase() == fruitText.lowercase()){
                 return f
             }
         }
