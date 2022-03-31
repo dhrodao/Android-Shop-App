@@ -160,7 +160,7 @@ class SportsShopFragment : Fragment() {
         totalValueTextView = binding!!.basketPrice
 
         addToBasketButton = binding!!.addBasketButton
-        spinner = binding!!.fruitSpinner
+        spinner = binding!!.itemSpinner
         seekBar = binding!!.quantitySeekbar
     }
 
