@@ -23,6 +23,10 @@
                     android:id="@+id/chatFragment"
                     app:showAsAction="ifRoom"
                     android:title="@string/toolbar_chat" />
+                <item
+                    android:id="@+id/sentMessagesFragment"
+                    app:showAsAction="ifRoom"
+                    android:title="@string/toolbar_messages_sent" />
             </group>
         </menu>
     </item>
