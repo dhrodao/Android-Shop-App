@@ -27,6 +27,9 @@
                     android:id="@+id/sentMessagesFragment"
                     app:showAsAction="ifRoom"
                     android:title="@string/toolbar_messages_sent" />
+                <item android:id="@+id/inboxFragment"
+                    app:showAsAction="ifRoom"
+                    android:title="@string/toolbar_inbox" />
             </group>
         </menu>
     </item>
