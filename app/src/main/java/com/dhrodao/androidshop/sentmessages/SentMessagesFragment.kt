@@ -1,4 +1,4 @@
-package com.dhrodao.androidshop
+package com.dhrodao.androidshop.sentmessages
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,8 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dhrodao.androidshop.entities.Message
 import com.dhrodao.androidshop.entities.User
-import com.dhrodao.androidshop.main.R
-import com.dhrodao.androidshop.main.databinding.FragmentChatBinding
 import com.dhrodao.androidshop.main.databinding.FragmentSentMessagesBinding
 import com.dhrodao.androidshop.main.viewmodel.MainViewModel
 import com.dhrodao.androidshop.util.CustomChatRecyclerAdapter
