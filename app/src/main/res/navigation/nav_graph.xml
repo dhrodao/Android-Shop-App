@@ -62,7 +62,7 @@
         tools:layout="@layout/fragment_chat" />
     <fragment
         android:id="@+id/sentMessagesFragment"
-        android:name="com.dhrodao.androidshop.SentMessagesFragment"
+        android:name="com.dhrodao.androidshop.sentmessages.SentMessagesFragment"
         android:label="SentMessagesFragment" >
         <action
             android:id="@+id/action_sentMessagesFragment_to_landingFragment"
