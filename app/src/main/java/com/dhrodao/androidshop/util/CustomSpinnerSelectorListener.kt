@@ -7,8 +7,9 @@ import android.widget.TextView
 import com.dhrodao.androidshop.items.FruitItems
 import com.dhrodao.androidshop.fruitshop.viewmodel.FruitShopViewModel
 import com.dhrodao.androidshop.main.R
+import com.dhrodao.androidshop.main.databinding.FragmentFruitShopBinding
 
-class CustomSpinnerSelectorListener(private val viewsAffected : Array<View>,
+class CustomSpinnerSelectorListener(private val fruitShopBinding: FragmentFruitShopBinding,
                                     private val fruits : Array<FruitItems>,
                                     private val fruitShopViewModel: FruitShopViewModel,
                                     private val seekBar: SeekBar
@@ -16,7 +17,6 @@ class CustomSpinnerSelectorListener(private val viewsAffected : Array<View>,
     private var fruitText : String = ""
     private var prevPosition : Int? = null
     var currentFruitItem : FruitItems? = null
-    var onRestore : Boolean = false
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         resetData(position)
@@ -25,10 +25,9 @@ class CustomSpinnerSelectorListener(private val viewsAffected : Array<View>,
         currentFruitItem = getFruitItem()
 
         if (position == 0) {
-            setVisibility(viewsAffected, View.INVISIBLE)
+            setControlElementsVisibility(View.INVISIBLE)
             return
-        }
-        setVisibility(viewsAffected, View.VISIBLE)
+        } else setControlElementsVisibility(View.VISIBLE)
 
         fruitShopViewModel.setCurrentSpinnerItem(position)
         updateFruitPrice(position)
@@ -44,9 +43,11 @@ class CustomSpinnerSelectorListener(private val viewsAffected : Array<View>,
         prevPosition = position
     }
 
-    private fun setVisibility(viewsAffected: Array<View>, visibility : Int) {
-        for (view in viewsAffected) {
-            view.visibility = visibility
+    private fun setControlElementsVisibility(visibility : Int) {
+        fruitShopBinding.apply {
+            quantityLayout.visibility = visibility
+            priceLayout.visibility = visibility
+            addBasketButton.visibility = visibility
         }
     }
 
