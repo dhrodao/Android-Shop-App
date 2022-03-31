@@ -16,12 +16,13 @@
     <string name="default_price">Total: 0 €</string>
     <string name="footer">by Daniel Hervás Rodao</string>
 
-    <!-- Toolbar -->
+    <!-- Toolbar Menu -->
     <string name="toolbar_inicio">Inicio</string>
     <string name="toolbar_fruit_shop">Frutas</string>
     <string name="shop_toolbar">Comprar</string>
     <string name="communications_toolbar">Comunicaciones</string>
     <string name="toolbar_chat">Chat</string>
+    <string name="toolbar_messages_sent">Mensajes enviados</string>
 
     <string name="escaparate_content_description">Escaparate vacío</string>
 
@@ -43,4 +44,6 @@
 
     <!-- Message layouts -->
     <string name="message_user_icon">User Icon</string>
+
+
 </resources>
