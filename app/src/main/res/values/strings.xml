@@ -29,4 +29,6 @@
 
     <string name="username_hint">Usuario</string>
     <string name="login_button_text">Login</string>
+
+    <string name="product_icon_description">Product icon</string>
 </resources>

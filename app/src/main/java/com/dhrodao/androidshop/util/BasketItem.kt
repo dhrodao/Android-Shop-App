@@ -4,17 +4,19 @@ import android.os.Parcel
 import android.os.Parcelable
 
 // Needs to inherit from parcelable in order to persist views when screen changes
-data class BasketItem(val fruit: String?, val icon: Int, val quantity: Int) : Parcelable {
+data class BasketItem(val item: String?, val icon: Int, val quantity: Int, val pricePerItem: Double) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readInt(),
-        parcel.readInt()
+        parcel.readInt(),
+        parcel.readDouble()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(fruit)
+        parcel.writeString(item)
         parcel.writeInt(icon)
         parcel.writeInt(quantity)
+        parcel.writeDouble(pricePerItem)
     }
 
     override fun describeContents(): Int {

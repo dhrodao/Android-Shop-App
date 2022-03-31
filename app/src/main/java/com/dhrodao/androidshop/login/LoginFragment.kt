@@ -39,7 +39,7 @@ class LoginFragment : Fragment() {
         }
     }
 
-    fun hideDrawerIcon(){
+    private fun hideDrawerIcon(){
         val activity = requireActivity() as MainActivity
         val toolbar = activity.findViewById<MaterialToolbar>(R.id.topAppBar)
         toolbar.navigationIcon = null

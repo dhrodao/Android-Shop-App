@@ -21,8 +21,6 @@ open class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
 
-    private var CURR_FRAGMENT: String = "CURR_FRAGMENT"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -39,7 +37,8 @@ open class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
         navController = navHostFragment.navController
-        navController.graph = navController.navInflater.inflate(R.navigation.nav_graph)
+
+        restoreCurrentStackIfExists(savedInstanceState)
 
         // Get navigation view (drawer)
         navigationView = findViewById(R.id.nav_view)
@@ -48,7 +47,8 @@ open class MainActivity : AppCompatActivity() {
         findViewById<NavigationView>(R.id.nav_view).setupWithNavController(navController)
 
         // Create a new Builder
-        val builder = AppBarConfiguration.Builder(R.id.nav_graph)
+        val builder = AppBarConfiguration.Builder(setOf(R.id.fruitShopFragment,
+            R.id.landingFragment))
 
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         builder.setOpenableLayout(drawerLayout)
@@ -58,27 +58,26 @@ open class MainActivity : AppCompatActivity() {
         toolBar.setupWithNavController(navController, appBarConfiguration)
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        recoverActualFragment(savedInstanceState)
+    override fun onNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onNavigateUp()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        saveCurrentFragment(outState)
+        saveCurrentStack(outState)
     }
 
-    private fun saveCurrentFragment(bundle: Bundle){
-        val fragmentId = getCurrentFragment()
-        bundle.putInt(CURR_FRAGMENT, fragmentId)
+    private fun saveCurrentStack(bundle: Bundle){
+        val backStack: Bundle? = navController.saveState()
+        bundle.putBundle("backStack", backStack)
     }
 
-    private fun getCurrentFragment() : Int{
-        return navController.currentDestination?.id ?: 0
-    }
-
-    private fun recoverActualFragment(bundle: Bundle){
-        val fragmentId = bundle.getInt(CURR_FRAGMENT)
-        navController.navigate(fragmentId)
+    private fun restoreCurrentStackIfExists(bundle: Bundle?){
+        if(bundle != null) {
+            val backStack: Bundle? = bundle.getBundle("backStack")
+            navController.restoreState(backStack)
+        }else{
+            navController.graph = navController.navInflater.inflate(R.navigation.nav_graph)
+        }
     }
 }

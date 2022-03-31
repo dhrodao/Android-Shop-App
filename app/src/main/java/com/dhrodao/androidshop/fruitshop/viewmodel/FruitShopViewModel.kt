@@ -32,6 +32,10 @@ class FruitShopViewModel() : ViewModel() {
     val currentSpinnerItem: LiveData<Int>
         get() = _currentSpinnerItem
 
+    private val _fruitItemSelected = MutableLiveData<BasketItem>()
+    val fruitItemSelected: LiveData<BasketItem>
+        get() = _fruitItemSelected
+
     fun updateFruitPrice() {
         _computedFruitPrice.value = _fruitPrice.value!! * _fruitQuantity.value!!
     }
@@ -69,5 +73,13 @@ class FruitShopViewModel() : ViewModel() {
 
     fun getCurrentSpinnerItem() : Int {
         return _currentSpinnerItem.value!!
+    }
+
+    fun setFruitItemSelected(item: BasketItem) {
+        _fruitItemSelected.value = item
+    }
+
+    fun getFruitItemSelected() : BasketItem {
+        return _fruitItemSelected.value!!
     }
 }
