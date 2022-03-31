@@ -60,7 +60,7 @@ class FruitShopFragment : Fragment() {
         spinner.apply { // Spinner
             adapter = CustomSpinnerAdapter(context, 0, FruitItems.values())
             customSpinnerSelectorListener = CustomSpinnerSelectorListener(
-                arrayOf(quantityLayout, priceLayout, addToBasketButton),
+                binding!!,
                 FruitItems.values(),
                 fruitShopViewModel,
                 seekBar
@@ -98,23 +98,50 @@ class FruitShopFragment : Fragment() {
     }
 
     private fun setViewModelObservers(){
-        val computeFruitPriceObserver = Observer<Double> {
-            val totalText = "Total: %.2f €".format(it)
-            priceValueTextView.text = totalText
-        }
-        fruitShopViewModel.computedFruitPrice.observe(viewLifecycleOwner, computeFruitPriceObserver)
+        val computeFruitPriceObserver = createFruitPriceObserver()
+        setComputeFruitQuantityObserver(computeFruitPriceObserver)
 
-        val fruitQuantityObserver = Observer<Int> {
-            val quantityText = "Cantidad: %d".format(it)
-            progressValueTextView.text = quantityText
-        }
+        val fruitQuantityObserver = createFruitQuantityObserver()
+        setFruitQuantityObserver(fruitQuantityObserver)
+
+        val basketPriceObserver = createBasketPriceObserver()
+        setBasketPriceObserver(basketPriceObserver)
+    }
+
+    private fun setBasketPriceObserver(basketPriceObserver: Observer<Double>) {
+        fruitShopViewModel.basketPrice.observe(viewLifecycleOwner, basketPriceObserver)
+    }
+
+    private fun setFruitQuantityObserver(fruitQuantityObserver: Observer<Int>) {
         fruitShopViewModel.fruitQuantity.observe(viewLifecycleOwner, fruitQuantityObserver)
+    }
 
+    private fun setComputeFruitQuantityObserver(computeFruitPriceObserver: Observer<Double>) {
+        fruitShopViewModel.computedFruitPrice.observe(viewLifecycleOwner, computeFruitPriceObserver)
+    }
+
+    private fun createBasketPriceObserver(): Observer<Double> {
         val basketPriceObserver = Observer<Double> {
             val totalText = "Total: %.2f €".format(it)
             totalValueTextView.text = totalText
         }
-        fruitShopViewModel.basketPrice.observe(viewLifecycleOwner, basketPriceObserver)
+        return basketPriceObserver
+    }
+
+    private fun createFruitQuantityObserver(): Observer<Int> {
+        val fruitQuantityObserver = Observer<Int> {
+            val quantityText = "Cantidad: %d".format(it)
+            progressValueTextView.text = quantityText
+        }
+        return fruitQuantityObserver
+    }
+
+    private fun createFruitPriceObserver(): Observer<Double> {
+        val computeFruitPriceObserver = Observer<Double> {
+            val totalText = "Total: %.2f €".format(it)
+            priceValueTextView.text = totalText
+        }
+        return computeFruitPriceObserver
     }
 
     private fun initComponents() {
@@ -127,9 +154,9 @@ class FruitShopFragment : Fragment() {
         priceValueTextView = binding!!.finalPrice
         totalValueTextView = binding!!.basketPrice
 
+        addToBasketButton = binding!!.addBasketButton
         spinner = binding!!.fruitSpinner
         seekBar = binding!!.quantitySeekbar
-        addToBasketButton = binding!!.addBasketButton
     }
 
     private fun setBasketView() {
