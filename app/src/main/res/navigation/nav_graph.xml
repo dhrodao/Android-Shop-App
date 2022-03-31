@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_landingFragment_to_sentMessagesFragment"
             app:destination="@id/sentMessagesFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_inboxFragment"
+            app:destination="@id/inboxFragment" />
     </fragment>
     <fragment
         android:id="@+id/fruitShopFragment"
@@ -68,4 +71,8 @@
             android:id="@+id/action_sentMessagesFragment_to_landingFragment"
             app:destination="@id/landingFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/inboxFragment"
+        android:name="com.dhrodao.androidshop.inbox.InboxFragment"
+        android:label="InboxFragment" />
 </navigation>

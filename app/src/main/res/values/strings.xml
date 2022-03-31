@@ -23,6 +23,7 @@
     <string name="communications_toolbar">Comunicaciones</string>
     <string name="toolbar_chat">Chat</string>
     <string name="toolbar_messages_sent">Mensajes enviados</string>
+    <string name="toolbar_inbox">Inbox</string>
 
     <string name="escaparate_content_description">Escaparate vacío</string>
 
@@ -44,6 +45,4 @@
 
     <!-- Message layouts -->
     <string name="message_user_icon">User Icon</string>
-
-
 </resources>
