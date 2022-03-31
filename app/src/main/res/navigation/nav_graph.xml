@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_landingFragment_to_fruitShopFragment"
             app:destination="@id/fruitShopFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_chatFragment2"
+            app:destination="@id/chatFragment" />
     </fragment>
     <fragment
         android:id="@+id/fruitShopFragment"
@@ -24,6 +27,9 @@
         <action
             android:id="@+id/action_fruitShopFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
+        <action
+            android:id="@+id/action_fruitShopFragment_to_chatFragment2"
+            app:destination="@id/chatFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -46,4 +52,9 @@
             app:popUpTo="@id/fruitShopFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.dhrodao.androidshop.chat.ChatFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" />
 </navigation>

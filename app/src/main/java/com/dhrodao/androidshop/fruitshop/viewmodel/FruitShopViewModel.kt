@@ -4,8 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dhrodao.androidshop.util.BasketItem
-import com.dhrodao.androidshop.util.CustomRecyclerAdapter
-import com.dhrodao.androidshop.util.CustomSeekBarListener
 
 class FruitShopViewModel() : ViewModel() {
     private val _fruitPrice = MutableLiveData(0.00)

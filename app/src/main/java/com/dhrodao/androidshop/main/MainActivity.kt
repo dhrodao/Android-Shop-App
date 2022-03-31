@@ -48,7 +48,7 @@ open class MainActivity : AppCompatActivity() {
 
         // Create a new Builder
         val builder = AppBarConfiguration.Builder(setOf(R.id.fruitShopFragment,
-            R.id.landingFragment))
+            R.id.landingFragment, R.id.chatFragment))
 
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         builder.setOpenableLayout(drawerLayout)

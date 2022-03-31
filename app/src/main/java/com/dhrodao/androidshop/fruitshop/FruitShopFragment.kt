@@ -34,7 +34,7 @@ class FruitShopFragment : Fragment() {
     private lateinit var priceValueTextView : TextView
     private lateinit var totalValueTextView : TextView
 
-    private lateinit var customRecyclerAdapter : CustomRecyclerAdapter
+    private lateinit var customShopRecyclerAdapter : CustomShopRecyclerAdapter
     private lateinit var customSeekBarListener: CustomSeekBarListener
     private lateinit var customSpinnerSelectorListener: CustomSpinnerSelectorListener
 
@@ -75,11 +75,11 @@ class FruitShopFragment : Fragment() {
         }
 
         basketLayout.apply { // RecyclerView
-            customRecyclerAdapter = CustomRecyclerAdapter(fruitShopViewModel.basketItems.value!!)
-            customRecyclerAdapter.setOnClickListener{ // Go to product details
+            customShopRecyclerAdapter = CustomShopRecyclerAdapter(fruitShopViewModel.basketItems.value!!)
+            customShopRecyclerAdapter.setOnClickListener{ // Go to product details
                 navigateToProductDetails(it)
             }
-            adapter = customRecyclerAdapter
+            adapter = customShopRecyclerAdapter
             layoutManager = LinearLayoutManager(context)
         }
 
@@ -136,7 +136,7 @@ class FruitShopFragment : Fragment() {
         customSpinnerSelectorListener.currentFruitItem?.let {
             val basketItem = BasketItem(it.fruit, it.icon, fruitShopViewModel.fruitQuantity.value!!, it.price)
             fruitShopViewModel.addToBasket(basketItem)
-            customRecyclerAdapter.notifyItemInserted(fruitShopViewModel.getBasketSize() - 1)
+            customShopRecyclerAdapter.notifyItemInserted(fruitShopViewModel.getBasketSize() - 1)
         }
     }
 
