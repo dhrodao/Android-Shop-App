@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_landingFragment_to_sportsShopFragment"
             app:destination="@id/sportsShopFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_butcherShopFragment"
+            app:destination="@id/butcherShopFragment" />
     </fragment>
     <fragment
         android:id="@+id/fruitShopFragment"
@@ -101,6 +104,14 @@
         android:label="SportsShopFragment">
         <action
             android:id="@+id/action_sportsShopFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/butcherShopFragment"
+        android:name="com.dhrodao.androidshop.butchershop.ButcherShopFragment"
+        android:label="ButcherShopFragment" >
+        <action
+            android:id="@+id/action_butcherShopFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
     </fragment>
 </navigation>

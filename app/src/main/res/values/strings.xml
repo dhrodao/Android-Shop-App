@@ -48,4 +48,6 @@
     <string name="message_user_icon">User Icon</string>
     <string name="sports_shop_text">Tienda de deportes</string>
 
+    <!-- Butcher shop text -->
+    <string name="butcher_shop_text">Carnicería</string>
 </resources>
