@@ -1,4 +1,4 @@
-package com.dhrodao.androidshop.fruitshop
+package com.dhrodao.androidshop.sportsshop
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,14 +14,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.dhrodao.androidshop.util.BasketItem
 import com.dhrodao.androidshop.main.R
-import com.dhrodao.androidshop.main.databinding.FragmentFruitShopBinding
+import com.dhrodao.androidshop.main.databinding.FragmentSportsShopBinding
 import com.dhrodao.androidshop.util.*
 import com.dhrodao.androidshop.viewmodel.MainViewModel
 import com.dhrodao.androidshop.viewmodel.ShopViewModel
 
-class FruitShopFragment() : Fragment() {
+class SportsShopFragment : Fragment() {
+
     private lateinit var mainLayout : ViewGroup
     private lateinit var quantityLayout : ViewGroup
     private lateinit var priceLayout : ViewGroup
@@ -40,18 +40,18 @@ class FruitShopFragment() : Fragment() {
 
     private lateinit var viewModel: ShopViewModel
 
-    private var binding: FragmentFruitShopBinding? = null
+    private var binding: FragmentSportsShopBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Binding
-        binding = FragmentFruitShopBinding.inflate(inflater, container, false)
+        binding = FragmentSportsShopBinding.inflate(inflater, container, false)
 
         // ViewModel
         viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-            .fruitShopViewModel
+            .sportsShopViewModel
         binding?.viewModel = viewModel
 
         setup()
@@ -60,9 +60,9 @@ class FruitShopFragment() : Fragment() {
     }
 
     private fun setup() {
-        setViewModelObservers() // Set observers for the ViewModel
+        setViewModelObservers()
 
-        initComponents() // initialize late init variables
+        initComponents()
 
         setupSpinner()
 
@@ -198,7 +198,7 @@ class FruitShopFragment() : Fragment() {
     private fun navigateToProductDetails(view: View) {
         val basketItem = viewModel.allBasketItems.value!![basketLayout.getChildAdapterPosition(view)]
         viewModel.setSelectedItem(basketItem)
-        findNavController().navigate(FruitShopFragmentDirections.actionFruitShopFragmentToProductDetailsFragment(viewModel.itemType))
+        findNavController().navigate(SportsShopFragmentDirections.actionSportsShopFragmentToProductDetailsFragment(viewModel.itemType))
     }
 
     class OnSpinnerEventsListenerImpl : CustomSpinner.OnSpinnerEventsListener {

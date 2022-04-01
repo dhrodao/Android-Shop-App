@@ -7,13 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
-import com.dhrodao.androidshop.fruitshop.viewmodel.FruitShopViewModel
+import com.dhrodao.androidshop.items.ItemTypes
 import com.dhrodao.androidshop.main.databinding.FragmentProductDetailsBinding
 import com.dhrodao.androidshop.util.BasketItem
+import com.dhrodao.androidshop.viewmodel.MainViewModel
+import com.dhrodao.androidshop.viewmodel.ShopViewModel
 
 class ProductDetailsFragment : Fragment() {
     private lateinit var binding : FragmentProductDetailsBinding
-    private lateinit var fruitShopViewModel: FruitShopViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,8 +22,15 @@ class ProductDetailsFragment : Fragment() {
     ): View {
         binding = FragmentProductDetailsBinding.inflate(inflater, container, false)
 
-        fruitShopViewModel = ViewModelProvider(requireActivity())[FruitShopViewModel::class.java]
-        showProductDetails(fruitShopViewModel.getFruitItemSelected())
+        val mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        val itemType = ProductDetailsFragmentArgs.fromBundle(requireArguments()).itemType
+        val viewModel = when(itemType){
+            ItemTypes.FRUIT -> mainViewModel.fruitShopViewModel
+            else -> {
+                mainViewModel.sportsShopViewModel
+            }
+        }
+        showProductDetails(viewModel.getSelectedItem())
 
         return binding.root
     }

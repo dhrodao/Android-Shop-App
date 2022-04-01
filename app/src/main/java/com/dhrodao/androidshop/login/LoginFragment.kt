@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.dhrodao.androidshop.main.MainActivity
 import com.dhrodao.androidshop.main.R
-import com.dhrodao.androidshop.main.viewmodel.MainViewModel
+import com.dhrodao.androidshop.viewmodel.MainViewModel
 import com.google.android.material.appbar.MaterialToolbar
 
 class LoginFragment : Fragment() {
