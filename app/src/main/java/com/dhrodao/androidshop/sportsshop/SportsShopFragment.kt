@@ -14,10 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.dhrodao.androidshop.items.ItemTypes
 import com.dhrodao.androidshop.main.R
-import com.dhrodao.androidshop.main.databinding.FragmentFruitShopBinding
-import com.dhrodao.androidshop.main.databinding.FragmentSentMessagesBinding
 import com.dhrodao.androidshop.main.databinding.FragmentSportsShopBinding
 import com.dhrodao.androidshop.util.*
 import com.dhrodao.androidshop.viewmodel.MainViewModel
@@ -57,12 +54,60 @@ class SportsShopFragment : Fragment() {
             .sportsShopViewModel
         binding?.viewModel = viewModel
 
-        setViewModelObservers() // Set observers for the ViewModel
+        setup()
 
-        initComponents() // initialize late init variables
+        return binding!!.root
+    }
 
+    private fun setup() {
+        setViewModelObservers()
+
+        initComponents()
+
+        setupSpinner()
+
+        setupSeekBar()
+
+        setupBasketLayout()
+
+        setupAddToBasketButton()
+
+        spinner.setSelection(viewModel.currentSpinnerItem.value!!)
+    }
+
+    private fun setupAddToBasketButton() {
+        addToBasketButton.setOnClickListener { // Button
+            if (viewModel.itemsQuantity.value!! > 0) {
+                viewModel.updateBasketPrice()
+
+                setBasketView()
+                resetDefaultValues()
+            }
+        }
+    }
+
+    private fun setupBasketLayout() {
+        basketLayout.apply { // RecyclerView
+            customShopRecyclerAdapter =
+                CustomShopRecyclerAdapter(viewModel.allBasketItems.value!!)
+            customShopRecyclerAdapter.setOnClickListener { // Go to product details
+                navigateToProductDetails(it)
+            }
+            adapter = customShopRecyclerAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
+    }
+
+    private fun setupSeekBar() {
+        seekBar.apply { // SeekBar
+            customSeekBarListener = CustomSeekBarListener(viewModel)
+            setOnSeekBarChangeListener(customSeekBarListener)
+        }
+    }
+
+    private fun setupSpinner() {
         spinner.apply { // Spinner
-            val itemArrayList = CorrespondingSpinnerItemsRetriever.getSpinnerItems(ItemTypes.SPORT)
+            val itemArrayList = CorrespondingSpinnerItemsRetriever.getSpinnerItems(viewModel.itemType)
             adapter = CustomSpinnerAdapter(context, 0, itemArrayList)
             customSpinnerSelectorListener = CustomSpinnerSelectorListener(
                 arrayOf(binding!!.quantityLayout, binding!!.priceLayout, binding!!.addBasketButton),
@@ -73,41 +118,14 @@ class SportsShopFragment : Fragment() {
             onItemSelectedListener = customSpinnerSelectorListener
             listener = OnSpinnerEventsListenerImpl()
         }
-
-        seekBar.apply { // SeekBar
-            customSeekBarListener = CustomSeekBarListener(viewModel)
-            setOnSeekBarChangeListener(customSeekBarListener)
-        }
-
-        basketLayout.apply { // RecyclerView
-            customShopRecyclerAdapter = CustomShopRecyclerAdapter(viewModel.fruitBasketItems.value!!)
-            customShopRecyclerAdapter.setOnClickListener{ // Go to product details
-                navigateToProductDetails(it)
-            }
-            adapter = customShopRecyclerAdapter
-            layoutManager = LinearLayoutManager(context)
-        }
-
-        addToBasketButton.setOnClickListener { // Button
-            if (viewModel.itemsQuantity.value!! > 0) {
-                viewModel.updateBasketPrice()
-
-                setBasketView()
-                resetDefaultValues()
-            }
-        }
-
-        spinner.setSelection(viewModel.currentSpinnerItem.value!!)
-
-        return binding!!.root
     }
 
     private fun setViewModelObservers(){
-        val computeFruitPriceObserver = createFruitPriceObserver()
-        setComputeFruitQuantityObserver(computeFruitPriceObserver)
+        val computeItemPriceObserver = createItemPriceObserver()
+        setComputeItemQuantityObserver(computeItemPriceObserver)
 
-        val fruitQuantityObserver = createFruitQuantityObserver()
-        setFruitQuantityObserver(fruitQuantityObserver)
+        val itemQuantityObserver = createItemQuantityObserver()
+        setItemQuantityObserver(itemQuantityObserver)
 
         val basketPriceObserver = createBasketPriceObserver()
         setBasketPriceObserver(basketPriceObserver)
@@ -117,12 +135,12 @@ class SportsShopFragment : Fragment() {
         viewModel.basketPrice.observe(viewLifecycleOwner, basketPriceObserver)
     }
 
-    private fun setFruitQuantityObserver(fruitQuantityObserver: Observer<Int>) {
-        viewModel.itemsQuantity.observe(viewLifecycleOwner, fruitQuantityObserver)
+    private fun setItemQuantityObserver(itemQuantityObserver: Observer<Int>) {
+        viewModel.itemsQuantity.observe(viewLifecycleOwner, itemQuantityObserver)
     }
 
-    private fun setComputeFruitQuantityObserver(computeFruitPriceObserver: Observer<Double>) {
-        viewModel.computedItemsPrice.observe(viewLifecycleOwner, computeFruitPriceObserver)
+    private fun setComputeItemQuantityObserver(computeItemPriceObserver: Observer<Double>) {
+        viewModel.computedItemsPrice.observe(viewLifecycleOwner, computeItemPriceObserver)
     }
 
     private fun createBasketPriceObserver(): Observer<Double> {
@@ -133,20 +151,20 @@ class SportsShopFragment : Fragment() {
         return basketPriceObserver
     }
 
-    private fun createFruitQuantityObserver(): Observer<Int> {
-        val fruitQuantityObserver = Observer<Int> {
+    private fun createItemQuantityObserver(): Observer<Int> {
+        val itemQuantityObserver = Observer<Int> {
             val quantityText = "Cantidad: %d".format(it)
             progressValueTextView.text = quantityText
         }
-        return fruitQuantityObserver
+        return itemQuantityObserver
     }
 
-    private fun createFruitPriceObserver(): Observer<Double> {
-        val computeFruitPriceObserver = Observer<Double> {
+    private fun createItemPriceObserver(): Observer<Double> {
+        val computeItemPriceObserver = Observer<Double> {
             val totalText = "Total: %.2f €".format(it)
             priceValueTextView.text = totalText
         }
-        return computeFruitPriceObserver
+        return computeItemPriceObserver
     }
 
     private fun initComponents() {
@@ -178,9 +196,9 @@ class SportsShopFragment : Fragment() {
     }
 
     private fun navigateToProductDetails(view: View) {
-        val basketItem = viewModel.fruitBasketItems.value!![basketLayout.getChildAdapterPosition(view)]
+        val basketItem = viewModel.allBasketItems.value!![basketLayout.getChildAdapterPosition(view)]
         viewModel.setSelectedItem(basketItem)
-        findNavController().navigate(SportsShopFragmentDirections.actionSportsShopFragmentToProductDetailsFragment(ItemTypes.SPORT))
+        findNavController().navigate(SportsShopFragmentDirections.actionSportsShopFragmentToProductDetailsFragment(viewModel.itemType))
     }
 
     class OnSpinnerEventsListenerImpl : CustomSpinner.OnSpinnerEventsListener {

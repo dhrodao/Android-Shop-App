@@ -3,6 +3,7 @@ package com.dhrodao.androidshop.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.dhrodao.androidshop.items.ItemTypes
 import com.dhrodao.androidshop.util.BasketItem
 import kotlinx.coroutines.flow.merge
 
@@ -21,8 +22,8 @@ class MainViewModel : ViewModel() {
     private val basketItems: LiveData<ArrayList<BasketItem>>
         get() = _basketItems
 
-    val fruitShopViewModel: ShopViewModel = ShopViewModel(fruitBasketItems, basketItems)
-    val sportsShopViewModel: ShopViewModel = ShopViewModel(sportBasketItems, basketItems)
+    val fruitShopViewModel: ShopViewModel = ShopViewModel(ItemTypes.FRUIT, fruitBasketItems, basketItems)
+    val sportsShopViewModel: ShopViewModel = ShopViewModel(ItemTypes.SPORT, sportBasketItems, basketItems)
 
     /* USER */
 

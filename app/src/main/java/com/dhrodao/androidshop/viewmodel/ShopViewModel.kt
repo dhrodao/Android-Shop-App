@@ -3,9 +3,10 @@ package com.dhrodao.androidshop.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.dhrodao.androidshop.items.ItemTypes
 import com.dhrodao.androidshop.util.BasketItem
 
-class ShopViewModel(val fruitBasketItems: LiveData<ArrayList<BasketItem>>, val basketItems: LiveData<ArrayList<BasketItem>>) : ViewModel() {
+class ShopViewModel(val itemType: ItemTypes, val allBasketItems: LiveData<ArrayList<BasketItem>>, private val basketItems: LiveData<ArrayList<BasketItem>>) : ViewModel() {
     private val _itemPrice = MutableLiveData(0.00)
     val itemPrice: LiveData<Double>
         get() = _itemPrice
@@ -54,11 +55,11 @@ class ShopViewModel(val fruitBasketItems: LiveData<ArrayList<BasketItem>>, val b
     }
 
     fun getBasketSize() : Int {
-        return fruitBasketItems.value!!.size
+        return allBasketItems.value!!.size
     }
 
     fun addToBasket(item: BasketItem) {
-        fruitBasketItems.value!!.add(item)
+        allBasketItems.value!!.add(item)
         basketItems.value!!.add(item)
     }
 
