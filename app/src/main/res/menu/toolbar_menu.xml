@@ -15,6 +15,9 @@
                 <item android:id="@+id/sportsShopFragment"
                     app:showAsAction="ifRoom"
                     android:title="@string/toolbar_sports_shop" />
+                <item android:id="@+id/butcherShopFragment"
+                    app:showAsAction="ifRoom"
+                    android:title="@string/butcher_shop_text" />
             </group>
         </menu>
     </item>
