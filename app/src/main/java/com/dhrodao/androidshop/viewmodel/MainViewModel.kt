@@ -26,13 +26,17 @@ class MainViewModel : ViewModel() {
         get() = _fishBasketItems
 
     private val _basketItems = MutableLiveData<ArrayList<BasketItem>>(ArrayList())
-    private val basketItems: LiveData<ArrayList<BasketItem>>
+    val basketItems: LiveData<ArrayList<BasketItem>>
         get() = _basketItems
 
-    val fruitShopViewModel: ShopViewModel = ShopViewModel(ItemTypes.FRUIT, fruitBasketItems, basketItems)
-    val sportsShopViewModel: ShopViewModel = ShopViewModel(ItemTypes.SPORT, sportBasketItems, basketItems)
-    val butcherShopViewModel: ShopViewModel = ShopViewModel(ItemTypes.BUTCHER, butcherBasketItems, basketItems)
-    val fishShopViewModel: ShopViewModel = ShopViewModel(ItemTypes.FISH, fishBasketItems, basketItems)
+    private val _basketPrice = MutableLiveData(0.0)
+    val basketPrice: LiveData<Double>
+        get() = _basketPrice
+
+    val fruitShopViewModel: ShopViewModel = ShopViewModel(ItemTypes.FRUIT, fruitBasketItems, _basketPrice, basketItems)
+    val sportsShopViewModel: ShopViewModel = ShopViewModel(ItemTypes.SPORT, sportBasketItems, _basketPrice, basketItems)
+    val butcherShopViewModel: ShopViewModel = ShopViewModel(ItemTypes.BUTCHER, butcherBasketItems, _basketPrice, basketItems)
+    val fishShopViewModel: ShopViewModel = ShopViewModel(ItemTypes.FISH, fishBasketItems, _basketPrice, basketItems)
 
     /* USER */
 

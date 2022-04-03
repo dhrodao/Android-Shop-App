@@ -21,6 +21,9 @@
                 <item android:id="@+id/fishShopFragment"
                     app:showAsAction="ifRoom"
                     android:title="@string/fish_shop_title" />
+                <item android:id="@+id/globalBasketFragment"
+                    app:showAsAction="ifRoom"
+                    android:title="@string/global_basket_text" />
             </group>
         </menu>
     </item>

@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_landingFragment_to_fishShopFragment"
             app:destination="@id/fishShopFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_globalBasketFragment"
+            app:destination="@id/globalBasketFragment" />
     </fragment>
     <fragment
         android:id="@+id/fruitShopFragment"
@@ -123,6 +126,14 @@
         android:label="FishShopFragment" >
         <action
             android:id="@+id/action_fishShopFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/globalBasketFragment"
+        android:name="com.dhrodao.androidshop.globalbasket.GlobalBasketFragment"
+        android:label="GlobalBasketFragment" >
+        <action
+            android:id="@+id/action_globalBasketFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
     </fragment>
 </navigation>

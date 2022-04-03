@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dhrodao.androidshop.main.R
 
 class CustomShopRecyclerAdapter(private val dataSet : ArrayList<BasketItem>) : RecyclerView.Adapter<CustomShopRecyclerAdapter.DataViewHolder>(), View.OnClickListener {
-    private lateinit var listener: View.OnClickListener
+    private var listener: View.OnClickListener? = null
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -49,6 +49,6 @@ class CustomShopRecyclerAdapter(private val dataSet : ArrayList<BasketItem>) : R
     }
 
     override fun onClick(view: View?) {
-        this.listener.onClick(view)
+        this.listener?.onClick(view)
     }
 }
