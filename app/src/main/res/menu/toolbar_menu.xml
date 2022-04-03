@@ -18,6 +18,9 @@
                 <item android:id="@+id/butcherShopFragment"
                     app:showAsAction="ifRoom"
                     android:title="@string/butcher_shop_text" />
+                <item android:id="@+id/fishShopFragment"
+                    app:showAsAction="ifRoom"
+                    android:title="@string/fish_shop_title" />
             </group>
         </menu>
     </item>

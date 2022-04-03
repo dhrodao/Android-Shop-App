@@ -25,6 +25,8 @@
     <string name="toolbar_messages_sent">Mensajes enviados</string>
     <string name="toolbar_inbox">Inbox</string>
     <string name="toolbar_sports_shop">Deportes</string>
+    <string name="butcher_shop_text">Carnicería</string>
+    <string name="fish_shop_title">Pescadería</string>
 
     <string name="escaparate_content_description">Escaparate vacío</string>
 
@@ -48,6 +50,4 @@
     <string name="message_user_icon">User Icon</string>
     <string name="sports_shop_text">Tienda de deportes</string>
 
-    <!-- Butcher shop text -->
-    <string name="butcher_shop_text">Carnicería</string>
 </resources>
