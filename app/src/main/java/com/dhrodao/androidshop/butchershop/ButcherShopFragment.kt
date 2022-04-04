@@ -1,6 +1,7 @@
 package com.dhrodao.androidshop.butchershop
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dhrodao.androidshop.main.R
 import com.dhrodao.androidshop.main.databinding.FragmentButcherShopBinding
-import com.dhrodao.androidshop.main.databinding.FragmentFruitShopBinding
 import com.dhrodao.androidshop.util.*
 import com.dhrodao.androidshop.viewmodel.MainViewModel
 import com.dhrodao.androidshop.viewmodel.ShopViewModel
@@ -89,7 +89,7 @@ class ButcherShopFragment : Fragment() {
     private fun setupBasketLayout() {
         basketLayout.apply { // RecyclerView
             customShopRecyclerAdapter =
-                CustomShopRecyclerAdapter(viewModel.allBasketItems.value!!)
+                CustomShopRecyclerAdapter(viewModel.getBasketItems())
             customShopRecyclerAdapter.setOnClickListener { // Go to product details
                 navigateToProductDetails(it)
             }
@@ -196,8 +196,9 @@ class ButcherShopFragment : Fragment() {
     }
 
     private fun navigateToProductDetails(view: View) {
-        val basketItem = viewModel.allBasketItems.value!![basketLayout.getChildAdapterPosition(view)]
+        val basketItem = viewModel.getBasketItems()[basketLayout.getChildAdapterPosition(view)]
         viewModel.setSelectedItem(basketItem)
+        Log.d("ButcherShopFragment", "Clicked on item: ${viewModel.itemSelected.value}")
         findNavController().navigate(ButcherShopFragmentDirections.actionButcherShopFragmentToProductDetailsFragment(viewModel.itemType))
     }
 
