@@ -96,4 +96,4 @@ object is the same as the username stored in the MainViewModel or not.
 
 ## Demo
 
-![Práctica 2 demo](https://youtu.be/Ir9hR1AvDXs)
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/Ir9hR1AvDXs/0.jpg)](https://www.youtube.com/watch?v=Ir9hR1AvDXs)
