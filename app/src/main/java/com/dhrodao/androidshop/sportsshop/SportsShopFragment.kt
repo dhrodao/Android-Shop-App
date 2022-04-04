@@ -89,7 +89,7 @@ class SportsShopFragment : Fragment() {
     private fun setupBasketLayout() {
         basketLayout.apply { // RecyclerView
             customShopRecyclerAdapter =
-                CustomShopRecyclerAdapter(viewModel.allBasketItems.value!!)
+                CustomShopRecyclerAdapter(viewModel.getBasketItems())
             customShopRecyclerAdapter.setOnClickListener { // Go to product details
                 navigateToProductDetails(it)
             }
@@ -196,7 +196,7 @@ class SportsShopFragment : Fragment() {
     }
 
     private fun navigateToProductDetails(view: View) {
-        val basketItem = viewModel.allBasketItems.value!![basketLayout.getChildAdapterPosition(view)]
+        val basketItem = viewModel.getBasketItems()[basketLayout.getChildAdapterPosition(view)]
         viewModel.setSelectedItem(basketItem)
         findNavController().navigate(SportsShopFragmentDirections.actionSportsShopFragmentToProductDetailsFragment(viewModel.itemType))
     }

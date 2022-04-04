@@ -31,16 +31,16 @@ class CustomShopRecyclerAdapter(private val dataSet : ArrayList<BasketItem>) : R
     }
 
     class DataViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
-        private val fruitImage = itemView.findViewById<ImageView>(R.id.image)
+        private val image = itemView.findViewById<ImageView>(R.id.image)
         private val textView = itemView.findViewById<TextView>(R.id.text)
-        private val fruitQuantityText = itemView.findViewById<TextView>(R.id.fruit_quantity)
+        private val quantityText = itemView.findViewById<TextView>(R.id.fruit_quantity)
 
         fun setData(basketItem: BasketItem) {
-            fruitImage.setImageResource(basketItem.icon)
+            image.setImageResource(basketItem.icon)
             textView.text = basketItem.item
 
             val auxText = "x${basketItem.quantity}"
-            fruitQuantityText.text = auxText
+            quantityText.text = auxText
         }
     }
 

@@ -11,7 +11,6 @@ import com.dhrodao.androidshop.items.ItemTypes
 import com.dhrodao.androidshop.main.databinding.FragmentProductDetailsBinding
 import com.dhrodao.androidshop.util.BasketItem
 import com.dhrodao.androidshop.viewmodel.MainViewModel
-import com.dhrodao.androidshop.viewmodel.ShopViewModel
 
 class ProductDetailsFragment : Fragment() {
     private lateinit var binding : FragmentProductDetailsBinding
@@ -23,14 +22,15 @@ class ProductDetailsFragment : Fragment() {
         binding = FragmentProductDetailsBinding.inflate(inflater, container, false)
 
         val mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-        val itemType = ProductDetailsFragmentArgs.fromBundle(requireArguments()).itemType
-        val viewModel = when(itemType){
+        val viewModel = when(ProductDetailsFragmentArgs.fromBundle(requireArguments()).itemType){
             ItemTypes.FRUIT -> mainViewModel.fruitShopViewModel
+            ItemTypes.FISH -> mainViewModel.fishShopViewModel
+            ItemTypes.BUTCHER -> mainViewModel.butcherShopViewModel
             else -> {
                 mainViewModel.sportsShopViewModel
             }
         }
-        showProductDetails(viewModel.getSelectedItem())
+        showProductDetails(viewModel.itemSelected.value!!)
 
         return binding.root
     }
