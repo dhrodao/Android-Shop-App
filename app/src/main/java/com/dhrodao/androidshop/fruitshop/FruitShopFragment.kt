@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.SeekBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dhrodao.androidshop.util.BasketItem
@@ -20,6 +22,7 @@ import com.dhrodao.androidshop.main.databinding.FragmentFruitShopBinding
 import com.dhrodao.androidshop.util.*
 import com.dhrodao.androidshop.viewmodel.MainViewModel
 import com.dhrodao.androidshop.viewmodel.ShopViewModel
+import kotlinx.coroutines.newFixedThreadPoolContext
 
 class FruitShopFragment : Fragment() {
     private lateinit var mainLayout : ViewGroup
@@ -87,14 +90,19 @@ class FruitShopFragment : Fragment() {
     }
 
     private fun setupBasketLayout() {
+        val fragment = this
         basketLayout.apply { // RecyclerView
             customShopRecyclerAdapter =
-                CustomShopRecyclerAdapter(viewModel.getBasketItems())
+                CustomShopRecyclerAdapter(fragment, viewModel.getBasketItems(), viewModel.getGlobalBasketItems(), viewModel)
             customShopRecyclerAdapter.setOnClickListener { // Go to product details
                 navigateToProductDetails(it)
             }
             adapter = customShopRecyclerAdapter
             layoutManager = LinearLayoutManager(context)
+
+            val swipeToDeleteCallback = SwipeToDeleteCallback(customShopRecyclerAdapter, viewModel)
+            val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
+            itemTouchHelper.attachToRecyclerView(this)
         }
     }
 
@@ -143,6 +151,18 @@ class FruitShopFragment : Fragment() {
         viewModel.computedItemsPrice.observe(viewLifecycleOwner, computeItemPriceObserver)
     }
 
+    private fun createBasketItemsObserver(): Observer<ArrayList<BasketItem>> {
+        return Observer<ArrayList<BasketItem>> {
+            var totalPrice = 0.0
+            for(item in it){
+                totalPrice += (item.pricePerItem * item.quantity)
+            }
+
+            val totalText = "Total: %.2f €".format(totalPrice)
+            totalValueTextView.text = totalText
+        }
+    }
+
     private fun createBasketPriceObserver(): Observer<Double> {
         val basketPriceObserver = Observer<Double> {
             val totalText = "Total: %.2f €".format(it)
@@ -185,8 +205,9 @@ class FruitShopFragment : Fragment() {
     private fun setBasketView() {
         customSpinnerSelectorListener.currentBasketItem?.let {
             val basketItem = BasketItem(it.item, it.icon, viewModel.itemsQuantity.value!!, it.price)
-            viewModel.addToBasket(basketItem)
-            customShopRecyclerAdapter.notifyItemInserted(viewModel.getBasketSize() - 1)
+
+            //viewModel.addToBasket(basketItem)
+            customShopRecyclerAdapter.addItem(basketItem)
         }
     }
 

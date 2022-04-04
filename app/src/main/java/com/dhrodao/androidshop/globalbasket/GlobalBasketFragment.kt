@@ -43,9 +43,10 @@ class GlobalBasketFragment : Fragment() {
     }
 
     private fun setupBasketLayout() {
+        val fragment = this
         binding.basketContainer.apply { // RecyclerView
             customShopRecyclerAdapter =
-                CustomShopRecyclerAdapter(viewModel.basketItems.value!!)
+                CustomShopRecyclerAdapter(fragment, viewModel.basketItems.value!!, null, null)
             adapter = customShopRecyclerAdapter
             layoutManager = LinearLayoutManager(context)
         }

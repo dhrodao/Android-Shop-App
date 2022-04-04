@@ -12,6 +12,7 @@ import androidx.appcompat.widget.AppCompatSpinner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dhrodao.androidshop.main.R
@@ -86,14 +87,19 @@ class FishShopFragment : Fragment() {
     }
 
     private fun setupBasketLayout() {
+        val fragment = this
         basketLayout.apply { // RecyclerView
             customShopRecyclerAdapter =
-                CustomShopRecyclerAdapter(viewModel.getBasketItems())
+                CustomShopRecyclerAdapter(fragment, viewModel.getBasketItems(), viewModel.getGlobalBasketItems(), viewModel)
             customShopRecyclerAdapter.setOnClickListener { // Go to product details
                 navigateToProductDetails(it)
             }
             adapter = customShopRecyclerAdapter
             layoutManager = LinearLayoutManager(context)
+
+            val swipeToDeleteCallback = SwipeToDeleteCallback(customShopRecyclerAdapter, viewModel)
+            val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
+            itemTouchHelper.attachToRecyclerView(this)
         }
     }
 
@@ -184,8 +190,8 @@ class FishShopFragment : Fragment() {
     private fun setBasketView() {
         customSpinnerSelectorListener.currentBasketItem?.let {
             val basketItem = BasketItem(it.item, it.icon, viewModel.itemsQuantity.value!!, it.price)
-            viewModel.addToBasket(basketItem)
-            customShopRecyclerAdapter.notifyItemInserted(viewModel.getBasketSize() - 1)
+            //viewModel.addToBasket(basketItem)
+            customShopRecyclerAdapter.addItem(basketItem)
         }
     }
 
