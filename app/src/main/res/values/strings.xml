@@ -52,4 +52,6 @@
 
     <string name="global_basket_price">Carrito</string>
     <string name="global_basket_text">Carrito</string>
+    <string name="snack_bar_text">Elemento eliminado</string>
+    <string name="snack_bar_undo_text">UNDO</string>
 </resources>

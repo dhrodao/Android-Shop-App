@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.dhrodao.androidshop.items.ItemTypes
 import com.dhrodao.androidshop.util.BasketItem
 
-class ShopViewModel(val itemType: ItemTypes, private val basketItems: LiveData<ArrayList<BasketItem>>, private val globalBasketPrice: MutableLiveData<Double>, private val allBasketItems: LiveData<ArrayList<BasketItem>>) : ViewModel() {
+class ShopViewModel(val itemType: ItemTypes, val basketItems: LiveData<ArrayList<BasketItem>>, val globalBasketPrice: MutableLiveData<Double>, private val allBasketItems: LiveData<ArrayList<BasketItem>>) : ViewModel() {
     private val _itemPrice = MutableLiveData(0.00)
     val itemPrice: LiveData<Double>
         get() = _itemPrice
@@ -41,10 +41,17 @@ class ShopViewModel(val itemType: ItemTypes, private val basketItems: LiveData<A
     }
 
     fun updateBasketPrice() {
-        _basketPrice.value = _basketPrice.value!! +
-                itemsQuantity.value?.toDouble()!! * itemPrice.value!!
+        val addedPrice = itemsQuantity.value?.toDouble()!! * itemPrice.value!!
+        _basketPrice.value = _basketPrice.value!! + addedPrice
+        globalBasketPrice.value = globalBasketPrice.value?.plus(addedPrice)
+    }
 
-        globalBasketPrice.value = globalBasketPrice.value?.plus(_basketPrice.value!!)
+    fun setBasketPrice(price: Double) {
+        _basketPrice.value = price
+    }
+
+    fun setGlobalBasketPrice(price: Double) {
+        globalBasketPrice.value = price
     }
 
     fun updateItemsQuantity(value: Int) {
@@ -83,5 +90,9 @@ class ShopViewModel(val itemType: ItemTypes, private val basketItems: LiveData<A
 
     fun getBasketItems() : ArrayList<BasketItem> {
         return basketItems.value!!
+    }
+
+    fun getGlobalBasketItems() : ArrayList<BasketItem> {
+        return allBasketItems.value!!
     }
 }
