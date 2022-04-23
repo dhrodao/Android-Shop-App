@@ -7,12 +7,12 @@ sesión, se navegará a la landing page, donde se mostrará la descripción de l
 hamburguesa de navegación, con la que el usuario podrá navegar entre las diferentes secciones de la aplicación. Estas
 secciones son:
 
-    - Inicio
-    - Diferentes tiendas de productos
-    - Carrito de compras global
-    - Chat con administradores
-    - Ver ofertas recibidas
-    - Ver mensajes envíados
+   - Inicio
+   - Diferentes tiendas de productos
+   - Carrito de compras global
+   - Chat con administradores
+   - Ver ofertas recibidas
+   - Ver mensajes envíados
 
 ## Look and feel de las diferentes pantallas
    - Login
