@@ -12,7 +12,7 @@ secciones son:
    - Carrito de compras global
    - Chat con administradores
    - Ver ofertas recibidas
-   - Ver mensajes envíados
+   - Ver mensajes enviados
 
 ## Look and feel de las diferentes pantallas
    - Login
@@ -33,5 +33,5 @@ secciones son:
    - Ver ofertas recibidas
 <img src="https://github.com/dhrodao/Android-Shop-App/blob/issue-51/docs/received.png" alt="Demo vert" data-canonical-src="docs/screenshot.png" width="300"/>
     
-   - Ver mensajes envíados
+   - Ver mensajes enviados
 <img src="https://github.com/dhrodao/Android-Shop-App/blob/issue-51/docs/sent.png" alt="Demo vert" data-canonical-src="docs/screenshot.png" width="300"/>
