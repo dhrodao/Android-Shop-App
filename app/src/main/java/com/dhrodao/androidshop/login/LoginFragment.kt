@@ -5,38 +5,42 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.dhrodao.androidshop.main.MainActivity
 import com.dhrodao.androidshop.main.R
-import com.dhrodao.androidshop.viewmodel.MainViewModel
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 class LoginFragment : Fragment() {
-    private lateinit var viewModel : MainViewModel
+    private lateinit var loginCollectionAdapter: LoginCollectionAdapter
+    private lateinit var viewPager: ViewPager2
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         hideDrawerIcon()
 
-        return inflater.inflate(R.layout.fragment_login, container, false)
-    }
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_login, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        // Set collection adapter
+        loginCollectionAdapter = LoginCollectionAdapter(this)
+        viewPager = view.findViewById(R.id.login_fragment_view_pager)
+        viewPager.adapter = loginCollectionAdapter
 
-        viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        // Set tab layout mediator
+        val tabLayout = view.findViewById<TabLayout>(R.id.tab_layout)
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            when(position){
+                0 ->  tab.text = "Login"
+                1 -> tab.text = "Register"
+                else -> tab.text = "Login"
+            }
+        }.attach()
 
-        view.findViewById<Button>(R.id.login_button).setOnClickListener {
-            val username = view.findViewById<TextView>(R.id.login_edit_text).text.toString()
-            viewModel.setUserName(username)
-
-            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToLandingFragment())
-        }
+        return view
     }
 
     private fun hideDrawerIcon(){

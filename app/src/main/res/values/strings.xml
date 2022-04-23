@@ -54,4 +54,12 @@
     <string name="global_basket_text">Carrito</string>
     <string name="snack_bar_text">Elemento eliminado</string>
     <string name="snack_bar_undo_text">UNDO</string>
+    <string name="login_text">Login</string>
+    <string name="username_title">Nombre de usuario</string>
+    <string name="password_title">Contraseña</string>
+    <string name="login_button">Login</string>
+    <string name="register_text">SignUp</string>
+    <string name="name_field">Name</string>
+    <string name="surname_field">Surname</string>
+    <string name="register_button">SignUp</string>
 </resources>
