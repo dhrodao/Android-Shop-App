@@ -2,7 +2,7 @@
 
 ## Esquema general de navegación
 
-Inicialmente la aplicación comienza en el login, donde el usuario tendrá que iniciar sesión- Posteriormente de haber iniciado
+Inicialmente la aplicación comienza en el login, donde el usuario tendrá que iniciar sesión. Posteriormente de haber iniciado
 sesión, se navegará a la landing page, donde se mostrará la descripción de la aplicación y se habrá habilitado la
 hamburguesa de navegación, con la que el usuario podrá navegar entre las diferentes secciones de la aplicación. Estas
 secciones son:
