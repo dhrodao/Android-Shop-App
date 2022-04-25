@@ -14,7 +14,7 @@ secciones son:
    - Ver ofertas recibidas
    - Ver mensajes enviados
 
-<img src="https://github.com/dhrodao/Android-Shop-App/blob/dev/docs/flujo-ui.png" alt="Demo vert" data-canonical-src="docs/screenshot.png" width="300"/>
+<img src="https://github.com/dhrodao/Android-Shop-App/blob/dev/docs/flujo-ui.jpg" alt="Demo vert" data-canonical-src="docs/screenshot.png" width="300"/>
 
 ## Look and feel de las diferentes pantallas
    - Login
