@@ -14,24 +14,26 @@ secciones son:
    - Ver ofertas recibidas
    - Ver mensajes enviados
 
+<img src="https://github.com/dhrodao/Android-Shop-App/blob/dev/docs/flujo-ui.png" alt="Demo vert" data-canonical-src="docs/screenshot.png" width="300"/>
+
 ## Look and feel de las diferentes pantallas
    - Login
-<img src="https://github.com/dhrodao/Android-Shop-App/blob/issue-51/docs/login.png" alt="Demo vert" data-canonical-src="docs/screenshot.png" width="300"/>
+<img src="https://github.com/dhrodao/Android-Shop-App/blob/dev/docs/login.png" alt="Demo vert" data-canonical-src="docs/screenshot.png" width="300"/>
 
    - Inicio
-<img src="https://github.com/dhrodao/Android-Shop-App/blob/issue-51/docs/landing.png" alt="Demo vert" data-canonical-src="docs/screenshot.png" width="300"/>
+<img src="https://github.com/dhrodao/Android-Shop-App/blob/dev/docs/landing.png" alt="Demo vert" data-canonical-src="docs/screenshot.png" width="300"/>
 
    - Tiendas de productos
-<img src="https://github.com/dhrodao/Android-Shop-App/blob/issue-51/docs/shop.png" alt="Demo vert" data-canonical-src="docs/screenshot.png" width="300"/>
+<img src="https://github.com/dhrodao/Android-Shop-App/blob/dev/docs/shop.png" alt="Demo vert" data-canonical-src="docs/screenshot.png" width="300"/>
 
    - Carrito de compras global
-<img src="https://github.com/dhrodao/Android-Shop-App/blob/issue-51/docs/basket.png" alt="Demo vert" data-canonical-src="docs/screenshot.png" width="300"/>
+<img src="https://github.com/dhrodao/Android-Shop-App/blob/dev/docs/basket.png" alt="Demo vert" data-canonical-src="docs/screenshot.png" width="300"/>
 
    - Chat con administradores
-<img src="https://github.com/dhrodao/Android-Shop-App/blob/issue-51/docs/chat.png" alt="Demo vert" data-canonical-src="docs/screenshot.png" width="300"/>
+<img src="https://github.com/dhrodao/Android-Shop-App/blob/dev/docs/chat.png" alt="Demo vert" data-canonical-src="docs/screenshot.png" width="300"/>
 
    - Ver ofertas recibidas
-<img src="https://github.com/dhrodao/Android-Shop-App/blob/issue-51/docs/received.png" alt="Demo vert" data-canonical-src="docs/screenshot.png" width="300"/>
+<img src="https://github.com/dhrodao/Android-Shop-App/blob/dev/docs/received.png" alt="Demo vert" data-canonical-src="docs/screenshot.png" width="300"/>
     
    - Ver mensajes enviados
-<img src="https://github.com/dhrodao/Android-Shop-App/blob/issue-51/docs/sent.png" alt="Demo vert" data-canonical-src="docs/screenshot.png" width="300"/>
+<img src="https://github.com/dhrodao/Android-Shop-App/blob/dev/docs/sent.png" alt="Demo vert" data-canonical-src="docs/screenshot.png" width="300"/>
