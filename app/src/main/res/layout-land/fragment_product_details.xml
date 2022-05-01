@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_vertical"
-    tools:context="com.dhrodao.androidshop.productdetails.ProductDetailsFragment">
+    tools:context="com.dhrodao.androidshop.fragment.productdetails.ProductDetailsFragment">
 
     <ImageView
         android:id="@+id/product_icon"

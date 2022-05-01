@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dhrodao.androidshop.login.LoginTabFragment"
+    tools:context="com.dhrodao.androidshop.fragment.login.LoginTabFragment"
     android:id="@+id/login_tab_fragment"
     android:orientation="vertical">
 

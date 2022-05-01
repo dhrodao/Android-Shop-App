@@ -1,35 +1,21 @@
-package com.dhrodao.androidshop.sportsshop
+package com.dhrodao.androidshop.fragment.fishshop
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.SeekBar
-import android.widget.TextView
-import androidx.appcompat.widget.AppCompatSpinner
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.dhrodao.androidshop.butchershop.ButcherShopFragmentDirections
+import com.dhrodao.androidshop.fragment.ShopFragment
 import com.dhrodao.androidshop.main.R
-import com.dhrodao.androidshop.main.databinding.FragmentButcherShopBinding
-import com.dhrodao.androidshop.main.databinding.FragmentSportsShopBinding
-import com.dhrodao.androidshop.util.*
+import com.dhrodao.androidshop.main.databinding.FragmentFishShopBinding
 import com.dhrodao.androidshop.viewmodel.MainViewModel
-import com.dhrodao.androidshop.viewmodel.ShopViewModel
 
-class SportsShopFragment : ShopFragment(R.layout.fragment_sports_shop) {
+class FishShopFragment : ShopFragment<FragmentFishShopBinding>(R.layout.fragment_fish_shop) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java].sportsShopViewModel
+        viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java].fishShopViewModel
 
-        val binding = getSpecificBinding<FragmentSportsShopBinding>()
+        val binding = getSpecificBinding<FragmentFishShopBinding>()
         binding?.viewModel = viewModel
 
         affectedUIItems = arrayOf(binding!!.quantityLayout, binding.priceLayout, binding.addBasketButton)
@@ -37,7 +23,7 @@ class SportsShopFragment : ShopFragment(R.layout.fragment_sports_shop) {
         setup()
     }
     override fun initComponents() {
-        val binding = getSpecificBinding<FragmentSportsShopBinding>()
+        val binding = getSpecificBinding<FragmentFishShopBinding>()
 
         mainLayout = binding!!.mainLayout
         quantityLayout = binding.quantityLayout
@@ -56,6 +42,10 @@ class SportsShopFragment : ShopFragment(R.layout.fragment_sports_shop) {
     override fun navigateToProductDetails(view: View) {
         val basketItem = viewModel.getBasketItems()[basketLayout.getChildAdapterPosition(view)]
         viewModel.setSelectedItem(basketItem)
-        findNavController().navigate(SportsShopFragmentDirections.actionSportsShopFragmentToProductDetailsFragment(viewModel.itemType))
+        findNavController().navigate(
+            FishShopFragmentDirections.actionFishShopFragmentToProductDetailsFragment(
+                viewModel.itemType
+            )
+        )
     }
 }

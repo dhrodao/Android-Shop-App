@@ -6,7 +6,7 @@
     app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/landingFragment"
-        android:name="com.dhrodao.androidshop.landing.LandingFragment"
+        android:name="com.dhrodao.androidshop.fragment.landing.LandingFragment"
         android:label="fragment_landing"
         tools:layout="@layout/fragment_landing" >
         <action
@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/fruitShopFragment"
-        android:name="com.dhrodao.androidshop.fruitshop.FruitShopFragment"
+        android:name="com.dhrodao.androidshop.fragment.fruitshop.FruitShopFragment"
         android:label="fragment_fruit_shop"
         tools:layout="@layout/fragment_fruit_shop" >
         <action
@@ -54,7 +54,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.dhrodao.androidshop.login.LoginFragment"
+        android:name="com.dhrodao.androidshop.fragment.login.LoginFragment"
         android:label="LoginFragment" >
         <action
             android:id="@+id/action_loginFragment_to_landingFragment"
@@ -63,7 +63,7 @@
     </fragment>
     <fragment
         android:id="@+id/productDetailsFragment"
-        android:name="com.dhrodao.androidshop.productdetails.ProductDetailsFragment"
+        android:name="com.dhrodao.androidshop.fragment.productdetails.ProductDetailsFragment"
         android:label="fragment_product_details"
         tools:layout="@layout/fragment_product_details" >
         <action
@@ -78,7 +78,7 @@
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
-        android:name="com.dhrodao.androidshop.chat.ChatFragment"
+        android:name="com.dhrodao.androidshop.fragment.chat.ChatFragment"
         android:label="fragment_chat"
         tools:layout="@layout/fragment_chat" >
         <action
@@ -87,7 +87,7 @@
     </fragment>
     <fragment
         android:id="@+id/sentMessagesFragment"
-        android:name="com.dhrodao.androidshop.sentmessages.SentMessagesFragment"
+        android:name="com.dhrodao.androidshop.fragment.sentmessages.SentMessagesFragment"
         android:label="SentMessagesFragment" >
         <action
             android:id="@+id/action_sentMessagesFragment_to_landingFragment"
@@ -98,7 +98,7 @@
     </fragment>
     <fragment
         android:id="@+id/inboxFragment"
-        android:name="com.dhrodao.androidshop.inbox.InboxFragment"
+        android:name="com.dhrodao.androidshop.fragment.inbox.InboxFragment"
         android:label="InboxFragment" >
         <action
             android:id="@+id/action_inboxFragment_to_sportsShopFragment"
@@ -106,7 +106,7 @@
     </fragment>
     <fragment
         android:id="@+id/sportsShopFragment"
-        android:name="com.dhrodao.androidshop.sportsshop.SportsShopFragment"
+        android:name="com.dhrodao.androidshop.fragment.sportsshop.SportsShopFragment"
         android:label="SportsShopFragment">
         <action
             android:id="@+id/action_sportsShopFragment_to_productDetailsFragment"
@@ -114,7 +114,7 @@
     </fragment>
     <fragment
         android:id="@+id/butcherShopFragment"
-        android:name="com.dhrodao.androidshop.butchershop.ButcherShopFragment"
+        android:name="com.dhrodao.androidshop.fragment.butchershop.ButcherShopFragment"
         android:label="ButcherShopFragment" >
         <action
             android:id="@+id/action_butcherShopFragment_to_productDetailsFragment"
@@ -122,7 +122,7 @@
     </fragment>
     <fragment
         android:id="@+id/fishShopFragment"
-        android:name="com.dhrodao.androidshop.fishshop.FishShopFragment"
+        android:name="com.dhrodao.androidshop.fragment.fishshop.FishShopFragment"
         android:label="FishShopFragment" >
         <action
             android:id="@+id/action_fishShopFragment_to_productDetailsFragment"
@@ -130,7 +130,7 @@
     </fragment>
     <fragment
         android:id="@+id/globalBasketFragment"
-        android:name="com.dhrodao.androidshop.globalbasket.GlobalBasketFragment"
+        android:name="com.dhrodao.androidshop.fragment.globalbasket.GlobalBasketFragment"
         android:label="GlobalBasketFragment" >
         <action
             android:id="@+id/action_globalBasketFragment_to_productDetailsFragment"

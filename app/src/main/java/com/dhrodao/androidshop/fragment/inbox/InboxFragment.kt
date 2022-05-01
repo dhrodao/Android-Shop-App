@@ -1,4 +1,4 @@
-package com.dhrodao.androidshop.sentmessages
+package com.dhrodao.androidshop.fragment.inbox
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,8 +13,9 @@ import com.dhrodao.androidshop.main.databinding.FragmentSentMessagesBinding
 import com.dhrodao.androidshop.viewmodel.MainViewModel
 import com.dhrodao.androidshop.util.CustomChatRecyclerAdapter
 
-class SentMessagesFragment : Fragment() {
-    private lateinit var binding : FragmentSentMessagesBinding
+class InboxFragment : Fragment() {
+    private lateinit var binding: FragmentSentMessagesBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -22,8 +23,8 @@ class SentMessagesFragment : Fragment() {
         binding = FragmentSentMessagesBinding.inflate(inflater, container, false)
 
         val messageList: ArrayList<Message> = ArrayList()
-        messageList.add(Message("Hello", User("dhrodao"), "9:00"))
-        messageList.add(Message("Hello", User("dhrodao"), "10:00"))
+        messageList.add(Message("Oferta", User("Oferta de productos!"), "9:00"))
+        messageList.add(Message("Oferta", User("Oferta de productos!"), "10:00"))
 
         val username = ViewModelProvider(requireActivity())[MainViewModel::class.java].getUserName()
 

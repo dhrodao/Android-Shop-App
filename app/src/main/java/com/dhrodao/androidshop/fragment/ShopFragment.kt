@@ -1,4 +1,4 @@
-package com.dhrodao.androidshop.util
+package com.dhrodao.androidshop.fragment
 
 import android.view.View
 import android.view.ViewGroup
@@ -6,14 +6,16 @@ import android.widget.Button
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatSpinner
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dhrodao.androidshop.main.R
+import com.dhrodao.androidshop.util.*
 import com.dhrodao.androidshop.viewmodel.ShopViewModel
 
-abstract class ShopFragment(layoutId: Int) : BaseFragment<ShopViewModel>(layoutId) {
+abstract class ShopFragment<B: ViewDataBinding>(layoutId: Int) : BaseFragment<ShopViewModel, B>(layoutId) {
     protected lateinit var mainLayout : ViewGroup
     protected lateinit var quantityLayout : ViewGroup
     protected lateinit var priceLayout : ViewGroup
@@ -85,7 +87,8 @@ abstract class ShopFragment(layoutId: Int) : BaseFragment<ShopViewModel>(layoutI
 
     private fun setupSpinner() {
         spinner.apply { // Spinner
-            val itemArrayList = CorrespondingSpinnerItemsRetriever.getSpinnerItems(viewModel.itemType)
+            val itemArrayList =
+                CorrespondingSpinnerItemsRetriever.getSpinnerItems(viewModel.itemType)
             adapter = CustomSpinnerAdapter(context, 0, itemArrayList)
             customSpinnerSelectorListener = CustomSpinnerSelectorListener(
                 affectedUIItems,

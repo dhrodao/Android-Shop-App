@@ -1,4 +1,4 @@
-package com.dhrodao.androidshop.login
+package com.dhrodao.androidshop.fragment.login
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.viewpager2.widget.ViewPager2
 import com.dhrodao.androidshop.main.MainActivity
 import com.dhrodao.androidshop.main.R
+import com.dhrodao.androidshop.util.LoginCollectionAdapter
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator

@@ -1,4 +1,4 @@
-package com.dhrodao.androidshop.globalbasket
+package com.dhrodao.androidshop.fragment.globalbasket
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
