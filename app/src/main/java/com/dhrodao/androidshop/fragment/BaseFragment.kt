@@ -1,4 +1,4 @@
-package com.dhrodao.androidshop.util
+package com.dhrodao.androidshop.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,14 +9,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import kotlin.reflect.KClass
 
 
-abstract class BaseFragment<VM : ViewModel>(@LayoutRes val layout: Int) : Fragment() {
+abstract class BaseFragment<VM : ViewModel, B : ViewDataBinding>(@LayoutRes val layout: Int) : Fragment() {
 
     // Accessible, but generic, won't have specific methods/fields, see getSpecificBinding()
-    open var binding: ViewDataBinding? = null
+    open var binding: B? = null
 
     open lateinit var viewModel: VM
 

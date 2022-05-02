@@ -1,16 +1,15 @@
-package com.dhrodao.androidshop.fruitshop
+package com.dhrodao.androidshop.fragment.fruitshop
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.dhrodao.androidshop.fragment.ShopFragment
 import com.dhrodao.androidshop.main.R
 import com.dhrodao.androidshop.main.databinding.FragmentFruitShopBinding
-import com.dhrodao.androidshop.util.*
 import com.dhrodao.androidshop.viewmodel.MainViewModel
 
-class FruitShopFragment : ShopFragment(R.layout.fragment_fruit_shop) {
+class FruitShopFragment : ShopFragment<FragmentFruitShopBinding>(R.layout.fragment_fruit_shop) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -43,6 +42,10 @@ class FruitShopFragment : ShopFragment(R.layout.fragment_fruit_shop) {
     override fun navigateToProductDetails(view: View) {
         val basketItem = viewModel.getBasketItems()[basketLayout.getChildAdapterPosition(view)]
         viewModel.setSelectedItem(basketItem)
-        findNavController().navigate(FruitShopFragmentDirections.actionFruitShopFragmentToProductDetailsFragment(viewModel.itemType))
+        findNavController().navigate(
+            FruitShopFragmentDirections.actionFruitShopFragmentToProductDetailsFragment(
+                viewModel.itemType
+            )
+        )
     }
 }

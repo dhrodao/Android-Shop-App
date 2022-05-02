@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.dhrodao.androidshop.globalbasket.GlobalBasketFragment">
+        tools:context="com.dhrodao.androidshop.fragment.globalbasket.GlobalBasketFragment">
 
         <TextView
             android:id="@+id/titleSpinner"

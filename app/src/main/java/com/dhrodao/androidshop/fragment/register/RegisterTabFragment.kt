@@ -1,4 +1,4 @@
-package com.dhrodao.androidshop.register
+package com.dhrodao.androidshop.fragment.register
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

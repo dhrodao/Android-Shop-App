@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.dhrodao.androidshop.fruitshop.FruitShopFragment">
+        tools:context="com.dhrodao.androidshop.fragment.fruitshop.FruitShopFragment">
 
         <TextView
             android:id="@+id/titleSpinner"

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dhrodao.androidshop.landing.LandingFragment"
+    tools:context="com.dhrodao.androidshop.fragment.landing.LandingFragment"
     android:id="@+id/login_fragment">
 
     <androidx.appcompat.widget.AppCompatImageView

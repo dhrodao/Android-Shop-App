@@ -1,4 +1,4 @@
-package com.dhrodao.androidshop.productdetails
+package com.dhrodao.androidshop.fragment.productdetails
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -22,7 +22,9 @@ class ProductDetailsFragment : Fragment() {
         binding = FragmentProductDetailsBinding.inflate(inflater, container, false)
 
         val mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-        val viewModel = when(ProductDetailsFragmentArgs.fromBundle(requireArguments()).itemType){
+        val viewModel = when(ProductDetailsFragmentArgs.fromBundle(
+            requireArguments()
+        ).itemType){
             ItemTypes.FRUIT -> mainViewModel.fruitShopViewModel
             ItemTypes.FISH -> mainViewModel.fishShopViewModel
             ItemTypes.BUTCHER -> mainViewModel.butcherShopViewModel
