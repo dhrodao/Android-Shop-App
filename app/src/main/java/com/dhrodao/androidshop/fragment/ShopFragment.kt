@@ -47,8 +47,6 @@ abstract class ShopFragment<B: ViewDataBinding>(layoutId: Int) : BaseFragment<Sh
         setupBasketLayout()
 
         setupAddToBasketButton()
-
-        spinner.setSelection(viewModel.currentSpinnerItem.value!!)
     }
 
     private fun setupAddToBasketButton() {

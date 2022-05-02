@@ -41,8 +41,7 @@ class FruitShopFragment : ShopFragment<FragmentFruitShopBinding>(R.layout.fragme
                 Log.d("FruitShopFragment", "Item: $item")
                 (spinner.adapter as CustomSpinnerAdapter).add(item)
             }
-            //(spinner.adapter as CustomSpinnerAdapter).add(BasketItems.ATUN)
-            //(spinner.adapter as CustomSpinnerAdapter).notifyDataSetChanged()
+            spinner.setSelection(viewModel.currentSpinnerItem.value!!)
         })
     }
     override fun initComponents() {

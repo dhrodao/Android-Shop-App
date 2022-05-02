@@ -41,6 +41,7 @@ class ButcherShopFragment : ShopFragment<FragmentFishShopBinding>(R.layout.fragm
                 Log.d("ButcherShopFragment", "Item: $item")
                 (spinner.adapter as CustomSpinnerAdapter).add(item)
             }
+            spinner.setSelection(viewModel.currentSpinnerItem.value!!)
         })
     }
     override fun initComponents() {
