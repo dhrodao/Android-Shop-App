@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.dhrodao.androidshop.entities.Item
 import com.dhrodao.androidshop.main.R
 import com.dhrodao.androidshop.util.*
 import com.dhrodao.androidshop.viewmodel.ShopViewModel
@@ -87,8 +88,8 @@ abstract class ShopFragment<B: ViewDataBinding>(layoutId: Int) : BaseFragment<Sh
 
     private fun setupSpinner() {
         spinner.apply { // Spinner
-            val itemArrayList =
-                CorrespondingSpinnerItemsRetriever.getSpinnerItems(viewModel.itemType)
+            val itemArrayList = ArrayList<Item>()
+                //CorrespondingSpinnerItemsRetriever.getSpinnerItems(viewModel.itemType)
             adapter = CustomSpinnerAdapter(context, 0, itemArrayList)
             customSpinnerSelectorListener = CustomSpinnerSelectorListener(
                 affectedUIItems,
@@ -152,7 +153,7 @@ abstract class ShopFragment<B: ViewDataBinding>(layoutId: Int) : BaseFragment<Sh
 
     private fun setBasketView() {
         customSpinnerSelectorListener.currentBasketItem?.let {
-            val basketItem = BasketItem(it.item, it.icon, viewModel.itemsQuantity.value!!, it.price)
+            val basketItem = BasketItem(it.name, it.icon, viewModel.itemsQuantity.value!!, it.price)
 
             //viewModel.addToBasket(basketItem)
             customShopRecyclerAdapter.addItem(basketItem)

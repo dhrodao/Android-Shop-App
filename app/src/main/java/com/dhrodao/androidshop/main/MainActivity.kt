@@ -5,16 +5,19 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.dhrodao.androidshop.dao.AppDatabase
+import com.dhrodao.androidshop.dao.ItemViewModelFactory
 import com.dhrodao.androidshop.main.databinding.ActivityMainBinding
 import com.dhrodao.androidshop.viewmodel.MainViewModel
 import com.google.android.material.navigation.NavigationView
 
 open class MainActivity : AppCompatActivity() {
-    private val mainViewModel: MainViewModel by viewModels()
+    //private lateinit var mainViewModel: MainViewModel
 
     private lateinit var navigationView: NavigationView
     lateinit var binding: ActivityMainBinding
@@ -27,7 +30,7 @@ open class MainActivity : AppCompatActivity() {
         // Binding
         binding = DataBindingUtil.setContentView(this,
             R.layout.activity_main) as ActivityMainBinding
-        binding.viewModel = mainViewModel
+        //binding.viewModel = mainViewModel
 
         // Set the toolbar
         val toolBar = binding.topAppBar

@@ -1,6 +1,7 @@
 package com.dhrodao.androidshop.fragment.login
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.dhrodao.androidshop.dao.AppDatabase
+import com.dhrodao.androidshop.dao.ItemViewModelFactory
 import com.dhrodao.androidshop.main.R
 import com.dhrodao.androidshop.viewmodel.MainViewModel
 
@@ -19,7 +22,11 @@ class LoginTabFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        val application = requireNotNull(this.activity).application //construye o toma referencia de DB
+        val dao = AppDatabase.getInstance(application).itemDao //idem
+        val viewModelFactory = ItemViewModelFactory(dao) //get ViewModel con DAO
+        viewModel = ViewModelProvider(
+            requireActivity(), viewModelFactory)[MainViewModel::class.java]
 
         val view = inflater.inflate(R.layout.fragment_login_tab, container, false)
 

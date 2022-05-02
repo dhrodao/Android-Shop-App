@@ -1,12 +1,17 @@
 package com.dhrodao.androidshop.fragment.sportsshop
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.dhrodao.androidshop.dao.AppDatabase
+import com.dhrodao.androidshop.dao.ItemViewModelFactory
 import com.dhrodao.androidshop.fragment.ShopFragment
 import com.dhrodao.androidshop.main.R
 import com.dhrodao.androidshop.main.databinding.FragmentSportsShopBinding
+import com.dhrodao.androidshop.util.CustomSpinnerAdapter
 import com.dhrodao.androidshop.viewmodel.MainViewModel
 
 class SportsShopFragment : ShopFragment<FragmentSportsShopBinding>(R.layout.fragment_sports_shop) {
@@ -21,6 +26,21 @@ class SportsShopFragment : ShopFragment<FragmentSportsShopBinding>(R.layout.frag
         affectedUIItems = arrayOf(binding!!.quantityLayout, binding.priceLayout, binding.addBasketButton)
 
         setup()
+
+        // Room
+        val application = requireNotNull(this.activity).application //construye o toma referencia de DB
+        val dao = AppDatabase.getInstance(application).itemDao
+        val viewModelFactory = ItemViewModelFactory(dao) //get ViewModel con DAO
+        val mainViewModel = ViewModelProvider(
+            requireActivity(), viewModelFactory
+        )[MainViewModel::class.java]
+
+        mainViewModel.sportItems.observe(requireActivity(), Observer {
+            it.forEach { item ->
+                Log.d("ButcherShopFragment", "Item: $item")
+                (spinner.adapter as CustomSpinnerAdapter).add(item)
+            }
+        })
     }
     override fun initComponents() {
         val binding = getSpecificBinding<FragmentSportsShopBinding>()
