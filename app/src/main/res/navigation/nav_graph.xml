@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/landingFragment"
         android:name="com.dhrodao.androidshop.fragment.landing.LandingFragment"
-        android:label="fragment_landing"
+        android:label="Inicio"
         tools:layout="@layout/fragment_landing" >
         <action
             android:id="@+id/action_landingFragment_to_fruitShopFragment"
@@ -37,7 +37,7 @@
     <fragment
         android:id="@+id/fruitShopFragment"
         android:name="com.dhrodao.androidshop.fragment.fruitshop.FruitShopFragment"
-        android:label="fragment_fruit_shop"
+        android:label="Frutería"
         tools:layout="@layout/fragment_fruit_shop" >
         <action
             android:id="@+id/action_fruitShopFragment_to_landingFragment"
@@ -55,7 +55,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.dhrodao.androidshop.fragment.login.LoginFragment"
-        android:label="LoginFragment" >
+        android:label="Inicio de sesión" >
         <action
             android:id="@+id/action_loginFragment_to_landingFragment"
             app:destination="@id/landingFragment"
@@ -64,7 +64,7 @@
     <fragment
         android:id="@+id/productDetailsFragment"
         android:name="com.dhrodao.androidshop.fragment.productdetails.ProductDetailsFragment"
-        android:label="fragment_product_details"
+        android:label="Detalles"
         tools:layout="@layout/fragment_product_details" >
         <action
             android:id="@+id/action_productDetailsFragment_to_fruitShopFragment"
@@ -79,7 +79,7 @@
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.dhrodao.androidshop.fragment.chat.ChatFragment"
-        android:label="fragment_chat"
+        android:label="Chat"
         tools:layout="@layout/fragment_chat" >
         <action
             android:id="@+id/action_chatFragment_to_sportsShopFragment"
@@ -88,7 +88,7 @@
     <fragment
         android:id="@+id/sentMessagesFragment"
         android:name="com.dhrodao.androidshop.fragment.sentmessages.SentMessagesFragment"
-        android:label="SentMessagesFragment" >
+        android:label="Mensajes enviados" >
         <action
             android:id="@+id/action_sentMessagesFragment_to_landingFragment"
             app:destination="@id/landingFragment" />
@@ -99,7 +99,7 @@
     <fragment
         android:id="@+id/inboxFragment"
         android:name="com.dhrodao.androidshop.fragment.inbox.InboxFragment"
-        android:label="InboxFragment" >
+        android:label="Bandeja de entrada" >
         <action
             android:id="@+id/action_inboxFragment_to_sportsShopFragment"
             app:destination="@id/sportsShopFragment" />
@@ -107,7 +107,7 @@
     <fragment
         android:id="@+id/sportsShopFragment"
         android:name="com.dhrodao.androidshop.fragment.sportsshop.SportsShopFragment"
-        android:label="SportsShopFragment">
+        android:label="Tienda de deportes">
         <action
             android:id="@+id/action_sportsShopFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
@@ -115,7 +115,7 @@
     <fragment
         android:id="@+id/butcherShopFragment"
         android:name="com.dhrodao.androidshop.fragment.butchershop.ButcherShopFragment"
-        android:label="ButcherShopFragment" >
+        android:label="Carnicería" >
         <action
             android:id="@+id/action_butcherShopFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
@@ -123,7 +123,7 @@
     <fragment
         android:id="@+id/fishShopFragment"
         android:name="com.dhrodao.androidshop.fragment.fishshop.FishShopFragment"
-        android:label="FishShopFragment" >
+        android:label="Pescadería" >
         <action
             android:id="@+id/action_fishShopFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
@@ -131,7 +131,7 @@
     <fragment
         android:id="@+id/globalBasketFragment"
         android:name="com.dhrodao.androidshop.fragment.globalbasket.GlobalBasketFragment"
-        android:label="GlobalBasketFragment" >
+        android:label="Carrito global" >
         <action
             android:id="@+id/action_globalBasketFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
