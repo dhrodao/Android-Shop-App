@@ -2,18 +2,13 @@ package com.dhrodao.androidshop.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.dhrodao.androidshop.dao.AppDatabase
-import com.dhrodao.androidshop.dao.ItemViewModelFactory
 import com.dhrodao.androidshop.main.databinding.ActivityMainBinding
-import com.dhrodao.androidshop.viewmodel.MainViewModel
 import com.google.android.material.navigation.NavigationView
 
 open class MainActivity : AppCompatActivity() {

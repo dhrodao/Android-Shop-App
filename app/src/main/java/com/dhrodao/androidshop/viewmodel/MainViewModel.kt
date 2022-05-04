@@ -1,16 +1,24 @@
 package com.dhrodao.androidshop.viewmodel
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.work.PeriodicWorkRequest
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.dhrodao.androidshop.dao.ItemDao
 import com.dhrodao.androidshop.entities.Item
 import com.dhrodao.androidshop.items.ItemTypes
+import com.dhrodao.androidshop.main.R
 import com.dhrodao.androidshop.util.BasketItem
+import com.dhrodao.androidshop.worker.ItemWorker
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
 
-class MainViewModel(val itemDao: ItemDao) : ViewModel() {
+class MainViewModel(val application: Application, val itemDao: ItemDao) : ViewModel() {
     private var username: MutableLiveData<String> = MutableLiveData("")
 
     private val _fruitBasketItems = MutableLiveData<ArrayList<BasketItem>>(ArrayList())
@@ -48,6 +56,8 @@ class MainViewModel(val itemDao: ItemDao) : ViewModel() {
     val butcherItems = itemDao.getItemsByType(ItemTypes.BUTCHER)
     val sportItems = itemDao.getItemsByType(ItemTypes.SPORT)
 
+    private val workManager = WorkManager.getInstance(application)
+
     /* USER */
 
     fun setUserName(name: String) {
@@ -70,23 +80,29 @@ class MainViewModel(val itemDao: ItemDao) : ViewModel() {
         }
     }
 
-    /*init {
+    init {
+        // Init database
         clearItems()
         insertItem(Item(0, ItemTypes.FRUIT, "Piña", 1.5, R.drawable.pineapple))
-        insertItem(Item(0, ItemTypes.FRUIT, "Uva", 0.75, R.drawable.uva))
-        insertItem(Item(0, ItemTypes.FRUIT, "Pera", 0.55, R.drawable.pear))
-        insertItem(Item(0, ItemTypes.FRUIT, "Naranja", 0.60, R.drawable.orange))
+        insertItem(Item(1, ItemTypes.FRUIT, "Uva", 0.75, R.drawable.uva))
+        insertItem(Item(2, ItemTypes.FRUIT, "Pera", 0.55, R.drawable.pear))
+        insertItem(Item(3, ItemTypes.FRUIT, "Naranja", 0.60, R.drawable.orange))
 
-        insertItem(Item(0, ItemTypes.SPORT, "Chandal", 49.99, R.drawable.chandal))
-        insertItem(Item(0, ItemTypes.SPORT, "Toalla", 19.99, R.drawable.toalla))
-        insertItem(Item(0, ItemTypes.SPORT, "Zapatillas", 99.99, R.drawable.zapatillas))
+        insertItem(Item(4, ItemTypes.SPORT, "Chandal", 49.99, R.drawable.chandal))
+        insertItem(Item(5, ItemTypes.SPORT, "Toalla", 19.99, R.drawable.toalla))
+        insertItem(Item(6, ItemTypes.SPORT, "Zapatillas", 99.99, R.drawable.zapatillas))
 
-        insertItem(Item(0, ItemTypes.BUTCHER, "Ternera", 2.75, R.drawable.ternera))
-        insertItem(Item(0, ItemTypes.BUTCHER, "Pollo", 2.50, R.drawable.pollo))
-        insertItem(Item(0, ItemTypes.BUTCHER, "Gallina", 2.99, R.drawable.gallina))
+        insertItem(Item(7, ItemTypes.BUTCHER, "Ternera", 2.75, R.drawable.ternera))
+        insertItem(Item(8, ItemTypes.BUTCHER, "Pollo", 2.50, R.drawable.pollo))
+        insertItem(Item(9, ItemTypes.BUTCHER, "Gallina", 2.99, R.drawable.gallina))
 
-        insertItem(Item(0, ItemTypes.FISH, "Trucha", 3.3, R.drawable.trucha))
-        insertItem(Item(0, ItemTypes.FISH, "Salmón", 5.0, R.drawable.salmon))
-        insertItem(Item(0, ItemTypes.FISH, "Atún", 2.5, R.drawable.atun))
-    }*/
+        insertItem(Item(10, ItemTypes.FISH, "Trucha", 3.3, R.drawable.trucha))
+        insertItem(Item(11, ItemTypes.FISH, "Salmón", 5.0, R.drawable.salmon))
+        insertItem(Item(12, ItemTypes.FISH, "Atún", 2.5, R.drawable.atun))
+
+        // Launch work every 15 minutes
+        val workRequest = PeriodicWorkRequestBuilder<ItemWorker>(PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS, TimeUnit.MILLISECONDS)
+            .build()
+        workManager.enqueue(workRequest)
+    }
 }

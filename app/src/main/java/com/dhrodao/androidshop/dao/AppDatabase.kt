@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.dhrodao.androidshop.entities.Item
 
-@Database(entities = [Item::class], version = 1)
+@Database(entities = [Item::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
     abstract val itemDao: ItemDao
 
@@ -22,7 +22,7 @@ abstract class AppDatabase : RoomDatabase() {
                         context.applicationContext,
                         AppDatabase::class.java,
                         "App_database"
-                    ).createFromAsset("database/items.db").build()
+                    ).fallbackToDestructiveMigration().build()
                     INSTANCE = instance
                 }
                 return instance

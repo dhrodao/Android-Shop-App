@@ -13,6 +13,9 @@ interface ItemDao {
     @Query("SELECT * FROM items WHERE type = :type")
     fun getItemsByType(type: ItemTypes): LiveData<List<Item>>
 
+    @Query("SELECT * FROM items WHERE id = :id")
+    suspend fun getItemById(id: Int): Item
+
     @Query("SELECT * FROM items WHERE id IN (:itemIds)")
     fun loadAllByIds(itemIds: IntArray): List<Item>
 

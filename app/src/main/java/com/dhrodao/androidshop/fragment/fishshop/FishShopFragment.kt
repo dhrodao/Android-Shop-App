@@ -21,7 +21,7 @@ class FishShopFragment : ShopFragment<FragmentFishShopBinding>(R.layout.fragment
         // Room
         val application = requireNotNull(this.activity).application //construye o toma referencia de DB
         val dao = AppDatabase.getInstance(application).itemDao
-        val viewModelFactory = ItemViewModelFactory(dao) //get ViewModel con DAO
+        val viewModelFactory = ItemViewModelFactory(application, dao) //get ViewModel con DAO
         val mainViewModel = ViewModelProvider(
             requireActivity(), viewModelFactory
         )[MainViewModel::class.java]

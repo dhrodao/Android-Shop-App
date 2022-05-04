@@ -1,7 +1,6 @@
 package com.dhrodao.androidshop.fragment.login
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +23,7 @@ class LoginTabFragment : Fragment() {
     ): View? {
         val application = requireNotNull(this.activity).application //construye o toma referencia de DB
         val dao = AppDatabase.getInstance(application).itemDao //idem
-        val viewModelFactory = ItemViewModelFactory(dao) //get ViewModel con DAO
+        val viewModelFactory = ItemViewModelFactory(application, dao) //get ViewModel con DAO
         viewModel = ViewModelProvider(
             requireActivity(), viewModelFactory)[MainViewModel::class.java]
 
