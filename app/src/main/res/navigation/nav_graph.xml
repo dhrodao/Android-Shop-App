@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_landingFragment_to_globalBasketFragment"
             app:destination="@id/globalBasketFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_ordersFragment"
+            app:destination="@id/ordersFragment" />
     </fragment>
     <fragment
         android:id="@+id/fruitShopFragment"
@@ -136,4 +139,9 @@
             android:id="@+id/action_globalBasketFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.dhrodao.androidshop.fragment.orders.OrdersFragment"
+        android:label="Pedidos"
+        tools:layout="@layout/fragment_orders" />
 </navigation>

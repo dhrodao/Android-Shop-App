@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import com.dhrodao.androidshop.dao.AppDatabase
 import com.dhrodao.androidshop.dao.ItemViewModelFactory
 import com.dhrodao.androidshop.fragment.ShopFragment
-import com.dhrodao.androidshop.items.BasketItems
 import com.dhrodao.androidshop.main.R
 import com.dhrodao.androidshop.main.databinding.FragmentFruitShopBinding
 import com.dhrodao.androidshop.util.CustomSpinnerAdapter
@@ -21,8 +20,9 @@ class FruitShopFragment : ShopFragment<FragmentFruitShopBinding>(R.layout.fragme
 
         // Room
         val application = requireNotNull(this.activity).application //construye o toma referencia de DB
-        val dao = AppDatabase.getInstance(application).itemDao
-        val viewModelFactory = ItemViewModelFactory(application, dao) //get ViewModel con DAO
+        val itemDao = AppDatabase.getInstance(application).itemDao
+        val orderDao = AppDatabase.getInstance(application).orderDao
+        val viewModelFactory = ItemViewModelFactory(application, itemDao, orderDao) //get ViewModel con DAO
         val mainViewModel = ViewModelProvider(
             requireActivity(), viewModelFactory
         )[MainViewModel::class.java]

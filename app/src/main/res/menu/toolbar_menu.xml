@@ -24,6 +24,9 @@
                 <item android:id="@+id/globalBasketFragment"
                     app:showAsAction="ifRoom"
                     android:title="@string/global_basket_text" />
+                <item android:id="@+id/ordersFragment"
+                    app:showAsAction="ifRoom"
+                    android:title="@string/order_basket_text" />
             </group>
         </menu>
     </item>

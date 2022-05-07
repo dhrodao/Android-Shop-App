@@ -1,15 +1,19 @@
 package com.dhrodao.androidshop.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.work.PeriodicWorkRequest
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.dhrodao.androidshop.dao.ItemDao
+import com.dhrodao.androidshop.dao.OrderDao
 import com.dhrodao.androidshop.entities.Item
+import com.dhrodao.androidshop.entities.Order
 import com.dhrodao.androidshop.items.ItemTypes
 import com.dhrodao.androidshop.main.R
 import com.dhrodao.androidshop.util.BasketItem
@@ -18,7 +22,7 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
-class MainViewModel(val application: Application, val itemDao: ItemDao) : ViewModel() {
+class MainViewModel(val application: Application, val itemDao: ItemDao, val orderDao: OrderDao) : ViewModel() {
     private var username: MutableLiveData<String> = MutableLiveData("")
 
     private val _fruitBasketItems = MutableLiveData<ArrayList<BasketItem>>(ArrayList())
@@ -50,11 +54,13 @@ class MainViewModel(val application: Application, val itemDao: ItemDao) : ViewMo
     val butcherShopViewModel: ShopViewModel = ShopViewModel(ItemTypes.BUTCHER, butcherBasketItems, _basketPrice, basketItems)
     val fishShopViewModel: ShopViewModel = ShopViewModel(ItemTypes.FISH, fishBasketItems, _basketPrice, basketItems)
 
-    val items = itemDao.getItems()
     val fruitItems = itemDao.getItemsByType(ItemTypes.FRUIT)
     val fishItems = itemDao.getItemsByType(ItemTypes.FISH)
     val butcherItems = itemDao.getItemsByType(ItemTypes.BUTCHER)
     val sportItems = itemDao.getItemsByType(ItemTypes.SPORT)
+
+    val items = itemDao.getItems()
+    var orders = orderDao.getOrdersByUsername("dhrodao")
 
     private val workManager = WorkManager.getInstance(application)
 
@@ -77,6 +83,20 @@ class MainViewModel(val application: Application, val itemDao: ItemDao) : ViewMo
     fun insertItem(item: Item) {
         viewModelScope.launch {
             itemDao.insertItem(item)
+        }
+    }
+
+    fun purchaseItems() {
+        viewModelScope.launch {
+            basketItems.value?.let { items ->
+                basketPrice.value?.let { price ->
+                Order(0, username.value.toString(),
+                    price, items)
+            } }
+                ?.let {
+                    orderDao.insertOrder(it)
+                    Log.d("MainViewModel", "Order inserted")
+                }
         }
     }
 
@@ -104,5 +124,10 @@ class MainViewModel(val application: Application, val itemDao: ItemDao) : ViewMo
         val workRequest = PeriodicWorkRequestBuilder<ItemWorker>(PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS, TimeUnit.MILLISECONDS)
             .build()
         workManager.enqueue(workRequest)
+
+        // observe on username change to update user orders list
+        username.observeForever {
+            orders = orderDao.getOrdersByUsername(it)
+        }
     }
 }

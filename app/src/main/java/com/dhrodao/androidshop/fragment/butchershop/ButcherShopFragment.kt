@@ -6,7 +6,6 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.dhrodao.androidshop.ItemService.ItemService
 import com.dhrodao.androidshop.dao.AppDatabase
 import com.dhrodao.androidshop.dao.ItemViewModelFactory
 import com.dhrodao.androidshop.fragment.ShopFragment
@@ -15,10 +14,6 @@ import com.dhrodao.androidshop.main.databinding.FragmentButcherShopBinding
 import com.dhrodao.androidshop.main.databinding.FragmentFishShopBinding
 import com.dhrodao.androidshop.util.CustomSpinnerAdapter
 import com.dhrodao.androidshop.viewmodel.MainViewModel
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 
 class ButcherShopFragment : ShopFragment<FragmentFishShopBinding>(R.layout.fragment_butcher_shop) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,8 +30,9 @@ class ButcherShopFragment : ShopFragment<FragmentFishShopBinding>(R.layout.fragm
 
         // Room
         val application = requireNotNull(this.activity).application //construye o toma referencia de DB
-        val dao = AppDatabase.getInstance(application).itemDao
-        val viewModelFactory = ItemViewModelFactory(application, dao) //get ViewModel con DAO
+        val itemDao = AppDatabase.getInstance(application).itemDao
+        val orderDao = AppDatabase.getInstance(application).orderDao
+        val viewModelFactory = ItemViewModelFactory(application, itemDao, orderDao) //get ViewModel con DAO
         val mainViewModel = ViewModelProvider(
             requireActivity(), viewModelFactory
         )[MainViewModel::class.java]

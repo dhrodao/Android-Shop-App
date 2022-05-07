@@ -22,10 +22,12 @@ class LoginTabFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val application = requireNotNull(this.activity).application //construye o toma referencia de DB
-        val dao = AppDatabase.getInstance(application).itemDao //idem
-        val viewModelFactory = ItemViewModelFactory(application, dao) //get ViewModel con DAO
+        val itemDao = AppDatabase.getInstance(application).itemDao
+        val orderDao = AppDatabase.getInstance(application).orderDao
+        val viewModelFactory = ItemViewModelFactory(application, itemDao, orderDao) //get ViewModel con DAO
         viewModel = ViewModelProvider(
-            requireActivity(), viewModelFactory)[MainViewModel::class.java]
+            requireActivity(), viewModelFactory
+        )[MainViewModel::class.java]
 
         val view = inflater.inflate(R.layout.fragment_login_tab, container, false)
 

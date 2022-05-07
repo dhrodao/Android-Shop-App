@@ -5,9 +5,7 @@ import android.widget.AdapterView
 import android.widget.SeekBar
 import android.widget.TextView
 import com.dhrodao.androidshop.entities.Item
-import com.dhrodao.androidshop.items.BasketItems
 import com.dhrodao.androidshop.main.R
-import com.dhrodao.androidshop.main.databinding.FragmentFruitShopBinding
 import com.dhrodao.androidshop.viewmodel.ShopViewModel
 
 class CustomSpinnerSelectorListener(private val affectedInterfaceItems: Array<View>,
