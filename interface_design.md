@@ -37,3 +37,7 @@ secciones son:
     
    - Ver mensajes enviados: Esta pantalla es similar a las dos anteriores, en ella se muestran los mensajes enviados por el usuario.
 <img src="https://github.com/dhrodao/Android-Shop-App/blob/dev/docs/sent.png" alt="Demo vert" data-canonical-src="docs/screenshot.png" width="300"/>
+     
+   - Pedidos: Esta pantalla es similar a la de carrito de compras global, pero en esta pantalla se muestran los pedidos realizados por el usuario. Consiste en 
+un _RecyclerView_ con una lista de pedidos, en el que para cada pedido se muestra su precio total.
+<img src="https://github.com/dhrodao/Android-Shop-App/blob/dev/docs/pedidos.png" alt="Demo vert" data-canonical-src="docs/pedidos.png" width="300"/>
