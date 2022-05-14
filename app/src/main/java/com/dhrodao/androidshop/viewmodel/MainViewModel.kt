@@ -103,6 +103,20 @@ class MainViewModel(val application: Application, val itemDao: ItemDao, val orde
                     Log.d("MainViewModel", "Order inserted")
                 }
         }
+
+        clearBaskets()
+    }
+
+    private fun clearBaskets() {
+        // clear global basket
+        _basketItems.value?.clear()
+        _basketPrice.value = 0.0
+
+        // clear shop baskets
+        fishShopViewModel.clearBasket()
+        fruitShopViewModel.clearBasket()
+        sportsShopViewModel.clearBasket()
+        butcherShopViewModel.clearBasket()
     }
 
     init {

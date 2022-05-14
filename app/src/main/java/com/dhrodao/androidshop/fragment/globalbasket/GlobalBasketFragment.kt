@@ -38,18 +38,20 @@ class GlobalBasketFragment : Fragment() {
             val globalBasket = viewModel.basketItems.value
             if (globalBasket != null && globalBasket.isNotEmpty()) {
                 viewModel.purchaseItems()
+                customShopRecyclerAdapter.notifyDataSetChanged()
                 Toast.makeText(context, "Added to basket", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        viewModel.basketPrice.observe(viewLifecycleOwner) {
+            val totalText = "Total: %.2f €".format(abs(it))
+            binding.basketPrice.text = totalText
         }
 
         setup()
     }
 
     private fun setup() {
-        val itemPrice = viewModel.basketPrice.value ?: 0.0
-        val totalText = "Total: %.2f €".format(abs(itemPrice))
-        binding.basketPrice.text = totalText
-
         setupBasketLayout()
     }
 

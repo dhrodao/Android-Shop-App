@@ -95,4 +95,9 @@ class ShopViewModel(val itemType: ItemTypes, val basketItems: LiveData<ArrayList
     fun getGlobalBasketItems() : ArrayList<BasketItem> {
         return allBasketItems.value!!
     }
+
+    fun clearBasket() {
+        basketItems.value!!.clear()
+        _basketPrice.value = 0.00
+    }
 }
