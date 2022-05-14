@@ -32,7 +32,7 @@ class CustomOrderRecyclerAdapter : RecyclerView.Adapter<CustomOrderRecyclerAdapt
         private val items : TextView = itemView.findViewById(R.id.item_list)
 
         fun setData(order: Order) {
-            val orderNameText = "Pedido ${order.id} - Precio ${order.totalPrice}€"
+            val orderNameText = "Pedido ${order.id} - Precio: ${order.totalPrice}€ - Fecha: ${order.orderDate}"
             orderName.text = orderNameText
 
             order.orderedItems.forEach {

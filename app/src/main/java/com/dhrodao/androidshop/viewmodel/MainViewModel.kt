@@ -1,10 +1,10 @@
 package com.dhrodao.androidshop.viewmodel
 
 import android.app.Application
+import android.icu.text.DateFormat
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.work.PeriodicWorkRequest
@@ -19,6 +19,7 @@ import com.dhrodao.androidshop.main.R
 import com.dhrodao.androidshop.util.BasketItem
 import com.dhrodao.androidshop.worker.ItemWorker
 import kotlinx.coroutines.launch
+import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
@@ -91,7 +92,11 @@ class MainViewModel(val application: Application, val itemDao: ItemDao, val orde
             basketItems.value?.let { items ->
                 basketPrice.value?.let { price ->
                 Order(0, username.value.toString(),
-                    price, items)
+                    price, items,
+                    DateFormat.getDateInstance(
+                        DateFormat.FULL,
+                        Locale("es", "ES")
+                    ).format(Date()))
             } }
                 ?.let {
                     orderDao.insertOrder(it)

@@ -9,5 +9,6 @@ class Order (
     @PrimaryKey(autoGenerate = true) var id: Int = 0,
     var username: String,
     var totalPrice: Double,
-    var orderedItems: List<BasketItem>
+    var orderedItems: List<BasketItem>,
+    var orderDate: String
 )

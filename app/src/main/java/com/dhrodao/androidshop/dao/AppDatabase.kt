@@ -9,7 +9,7 @@ import com.dhrodao.androidshop.entities.Item
 import com.dhrodao.androidshop.entities.Order
 import com.dhrodao.androidshop.util.Converters
 
-@Database(entities = [Item::class, Order::class], version = 4)
+@Database(entities = [Item::class, Order::class], version = 5)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract val itemDao: ItemDao
