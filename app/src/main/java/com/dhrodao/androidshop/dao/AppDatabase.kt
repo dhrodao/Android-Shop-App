@@ -7,13 +7,15 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.dhrodao.androidshop.entities.Item
 import com.dhrodao.androidshop.entities.Order
+import com.dhrodao.androidshop.entities.User
 import com.dhrodao.androidshop.util.Converters
 
-@Database(entities = [Item::class, Order::class], version = 5)
+@Database(entities = [Item::class, Order::class, User::class], version = 6)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract val itemDao: ItemDao
     abstract val orderDao: OrderDao
+    abstract val userDao: UserDao
 
     // Get database singleton instance
     companion object {

@@ -7,6 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dhrodao.androidshop.entities.Order
 import com.dhrodao.androidshop.main.R
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 class CustomOrderRecyclerAdapter : RecyclerView.Adapter<CustomOrderRecyclerAdapter.DataViewHolder>() {
     private val dataSet : ArrayList<Order> = ArrayList()
@@ -32,7 +34,11 @@ class CustomOrderRecyclerAdapter : RecyclerView.Adapter<CustomOrderRecyclerAdapt
         private val items : TextView = itemView.findViewById(R.id.item_list)
 
         fun setData(order: Order) {
-            val orderNameText = "Pedido ${order.id} - Precio: ${order.totalPrice}€ - Fecha: ${order.orderDate}"
+            val df = DecimalFormat("#.##")
+            df.roundingMode = RoundingMode.UP
+            val priceRounded = df.format(order.totalPrice)
+
+            val orderNameText = "Pedido ${order.id} - Precio: ${priceRounded}€ - Fecha: ${order.orderDate}"
             orderName.text = orderNameText
 
             order.orderedItems.forEach {
@@ -47,8 +53,7 @@ class CustomOrderRecyclerAdapter : RecyclerView.Adapter<CustomOrderRecyclerAdapt
     }
 
     fun addItem(item : Order) {
-        (dataSet as ArrayList).add(item)
-
+        dataSet.add(item)
         notifyItemInserted(dataSet.size - 1)
     }
 

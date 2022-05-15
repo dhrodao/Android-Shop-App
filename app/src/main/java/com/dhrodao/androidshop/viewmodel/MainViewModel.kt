@@ -1,8 +1,10 @@
 package com.dhrodao.androidshop.viewmodel
 
 import android.app.Application
+import android.content.Context
 import android.icu.text.DateFormat
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,9 +14,12 @@ import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.dhrodao.androidshop.dao.ItemDao
 import com.dhrodao.androidshop.dao.OrderDao
+import com.dhrodao.androidshop.dao.UserDao
 import com.dhrodao.androidshop.entities.Item
 import com.dhrodao.androidshop.entities.Order
+import com.dhrodao.androidshop.entities.User
 import com.dhrodao.androidshop.items.ItemTypes
+import com.dhrodao.androidshop.main.MainActivity
 import com.dhrodao.androidshop.main.R
 import com.dhrodao.androidshop.util.BasketItem
 import com.dhrodao.androidshop.worker.ItemWorker
@@ -23,7 +28,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
-class MainViewModel(val application: Application, val itemDao: ItemDao, val orderDao: OrderDao) : ViewModel() {
+class MainViewModel(val application: Application, val itemDao: ItemDao, val orderDao: OrderDao, val userDao: UserDao) : ViewModel() {
     private var username: MutableLiveData<String> = MutableLiveData("")
 
     private val _fruitBasketItems = MutableLiveData<ArrayList<BasketItem>>(ArrayList())
@@ -64,6 +69,10 @@ class MainViewModel(val application: Application, val itemDao: ItemDao, val orde
     var orders = orderDao.getOrdersByUsername("dhrodao")
 
     private val workManager = WorkManager.getInstance(application)
+
+    private val _isGoodLogin = MutableLiveData(false)
+    val isGoodLogin: LiveData<Boolean>
+        get() = _isGoodLogin
 
     /* USER */
 
@@ -117,6 +126,28 @@ class MainViewModel(val application: Application, val itemDao: ItemDao, val orde
         fruitShopViewModel.clearBasket()
         sportsShopViewModel.clearBasket()
         butcherShopViewModel.clearBasket()
+    }
+
+    fun isGoodLogin(username: String, password: String) {
+        viewModelScope.launch {
+            val user = userDao.getUserByUsername(username)
+            user.observeForever {
+                _isGoodLogin.value = it != null && it.password == password
+            }
+        }
+    }
+
+    fun register(context: Context, user: User){
+        viewModelScope.launch {
+            val userGet = userDao.getUserByUsername(user.username)
+            userGet.observeForever {
+                if (it == null) {
+                    val toastText = "Usuario registrado"
+                    viewModelScope.launch { userDao.insertUser(user) }
+                    Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     init {

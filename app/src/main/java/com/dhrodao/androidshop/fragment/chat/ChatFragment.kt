@@ -23,8 +23,8 @@ class ChatFragment : Fragment() {
         binding = FragmentChatBinding.inflate(inflater, container, false)
 
         val messageList: ArrayList<Message> = ArrayList()
-        messageList.add(Message("Hello", User("prueba"), "10:00"))
-        messageList.add(Message("Hello", User("dhrodao"), "10:00"))
+        messageList.add(Message("Hello", User(0, "prueba", "prueba", "prueba", "prueba"), "10:00"))
+        messageList.add(Message("Hello", User(0, "dhrodao", "prueba", "prueba", "prueba"), "10:00"))
 
         val username = ViewModelProvider(requireActivity())[MainViewModel::class.java].getUserName()
 
