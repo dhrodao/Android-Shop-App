@@ -1,5 +1,6 @@
 package com.dhrodao.androidshop.util
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,6 +43,7 @@ class CustomOrderRecyclerAdapter : RecyclerView.Adapter<CustomOrderRecyclerAdapt
             orderName.text = orderNameText
 
             order.orderedItems.forEach {
+                Log.d("Order:", it.item.toString())
                 val newItem = "${it.item} x${it.quantity}\n"
                 items.append(newItem)
             }

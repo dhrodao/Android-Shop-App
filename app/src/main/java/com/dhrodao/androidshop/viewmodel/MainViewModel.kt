@@ -19,9 +19,9 @@ import com.dhrodao.androidshop.entities.Item
 import com.dhrodao.androidshop.entities.Order
 import com.dhrodao.androidshop.entities.User
 import com.dhrodao.androidshop.items.ItemTypes
-import com.dhrodao.androidshop.main.MainActivity
 import com.dhrodao.androidshop.main.R
 import com.dhrodao.androidshop.util.BasketItem
+import com.dhrodao.androidshop.util.CustomShopRecyclerAdapter
 import com.dhrodao.androidshop.worker.ItemWorker
 import kotlinx.coroutines.launch
 import java.util.*
@@ -96,7 +96,7 @@ class MainViewModel(val application: Application, val itemDao: ItemDao, val orde
         }
     }
 
-    fun purchaseItems() {
+    fun purchaseItems(shopAdapter: CustomShopRecyclerAdapter) {
         viewModelScope.launch {
             basketItems.value?.let { items ->
                 basketPrice.value?.let { price ->
@@ -111,9 +111,9 @@ class MainViewModel(val application: Application, val itemDao: ItemDao, val orde
                     orderDao.insertOrder(it)
                     Log.d("MainViewModel", "Order inserted")
                 }
+            clearBaskets()
+            shopAdapter.notifyDataSetChanged()
         }
-
-        clearBaskets()
     }
 
     private fun clearBaskets() {

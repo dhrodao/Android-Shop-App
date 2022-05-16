@@ -37,8 +37,7 @@ class GlobalBasketFragment : Fragment() {
         binding.addBasketButton.setOnClickListener {
             val globalBasket = viewModel.basketItems.value
             if (globalBasket != null && globalBasket.isNotEmpty()) {
-                viewModel.purchaseItems()
-                customShopRecyclerAdapter.notifyDataSetChanged()
+                viewModel.purchaseItems(customShopRecyclerAdapter)
                 Toast.makeText(context, "Added to basket", Toast.LENGTH_SHORT).show()
             }
         }
