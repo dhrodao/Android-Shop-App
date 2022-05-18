@@ -4,19 +4,18 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.SeekBar
 import android.widget.TextView
-import com.dhrodao.androidshop.items.BasketItems
+import com.dhrodao.androidshop.entities.Item
 import com.dhrodao.androidshop.main.R
-import com.dhrodao.androidshop.main.databinding.FragmentFruitShopBinding
 import com.dhrodao.androidshop.viewmodel.ShopViewModel
 
 class CustomSpinnerSelectorListener(private val affectedInterfaceItems: Array<View>,
-                                    private val baskets : ArrayList<BasketItems>,
+                                    private val baskets : List<Item>,
                                     private val fruitShopViewModel: ShopViewModel,
                                     private val seekBar: SeekBar
 ) : AdapterView.OnItemSelectedListener {
     private var fruitText : String = ""
     private var prevPosition : Int? = null
-    var currentBasketItem : BasketItems? = null
+    var currentBasketItem : Item? = null
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         resetData(position)
@@ -55,9 +54,9 @@ class CustomSpinnerSelectorListener(private val affectedInterfaceItems: Array<Vi
         fruitShopViewModel.setPrice(getFruitPrice(position))
     }
 
-    private fun getFruitItem() : BasketItems? {
+    private fun getFruitItem() : Item? {
         for (f in baskets){
-            if (f.item.lowercase() == fruitText.lowercase()){
+            if (f.name.lowercase() == fruitText.lowercase()){
                 return f
             }
         }

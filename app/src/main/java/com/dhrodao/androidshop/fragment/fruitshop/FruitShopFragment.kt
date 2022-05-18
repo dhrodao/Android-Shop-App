@@ -1,19 +1,34 @@
 package com.dhrodao.androidshop.fragment.fruitshop
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.dhrodao.androidshop.dao.AppDatabase
+import com.dhrodao.androidshop.dao.ItemViewModelFactory
 import com.dhrodao.androidshop.fragment.ShopFragment
 import com.dhrodao.androidshop.main.R
 import com.dhrodao.androidshop.main.databinding.FragmentFruitShopBinding
+import com.dhrodao.androidshop.util.CustomSpinnerAdapter
 import com.dhrodao.androidshop.viewmodel.MainViewModel
 
 class FruitShopFragment : ShopFragment<FragmentFruitShopBinding>(R.layout.fragment_fruit_shop) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java].fruitShopViewModel
+        // Room
+        val application = requireNotNull(this.activity).application //construye o toma referencia de DB
+        val itemDao = AppDatabase.getInstance(application).itemDao
+        val orderDao = AppDatabase.getInstance(application).orderDao
+        val userDao = AppDatabase.getInstance(application).userDao
+        val viewModelFactory = ItemViewModelFactory(application, itemDao, orderDao, userDao) //get ViewModel con DAO
+        val mainViewModel = ViewModelProvider(
+            requireActivity(), viewModelFactory
+        )[MainViewModel::class.java]
+
+        viewModel = mainViewModel.fruitShopViewModel
 
         val binding = getSpecificBinding<FragmentFruitShopBinding>()
         binding?.viewModel = viewModel
@@ -21,6 +36,14 @@ class FruitShopFragment : ShopFragment<FragmentFruitShopBinding>(R.layout.fragme
         affectedUIItems = arrayOf(binding!!.quantityLayout, binding.priceLayout, binding.addBasketButton)
 
         setup()
+
+        mainViewModel.fruitItems.observe(requireActivity(), Observer {
+            it.forEach { item ->
+                Log.d("FruitShopFragment", "Item: $item")
+                (spinner.adapter as CustomSpinnerAdapter).add(item)
+            }
+            spinner.setSelection(viewModel.currentSpinnerItem.value!!)
+        })
     }
     override fun initComponents() {
         val binding = getSpecificBinding<FragmentFruitShopBinding>()

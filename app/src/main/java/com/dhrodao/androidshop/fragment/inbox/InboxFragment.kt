@@ -23,8 +23,8 @@ class InboxFragment : Fragment() {
         binding = FragmentSentMessagesBinding.inflate(inflater, container, false)
 
         val messageList: ArrayList<Message> = ArrayList()
-        messageList.add(Message("Oferta", User("Oferta de productos!"), "9:00"))
-        messageList.add(Message("Oferta", User("Oferta de productos!"), "10:00"))
+        messageList.add(Message("Oferta", User(0, "prueba", "prueba", "prueba", "prueba"), "9:00"))
+        messageList.add(Message("Oferta", User(0, "prueba", "prueba", "prueba", "prueba"), "10:00"))
 
         val username = ViewModelProvider(requireActivity())[MainViewModel::class.java].getUserName()
 

@@ -5,11 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dhrodao.androidshop.main.databinding.FragmentGlobalBasketBinding
 import com.dhrodao.androidshop.util.CustomShopRecyclerAdapter
 import com.dhrodao.androidshop.viewmodel.MainViewModel
+import kotlin.math.abs
 
 class GlobalBasketFragment : Fragment() {
     private lateinit var binding: FragmentGlobalBasketBinding
@@ -23,6 +25,7 @@ class GlobalBasketFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentGlobalBasketBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
@@ -31,14 +34,23 @@ class GlobalBasketFragment : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
 
+        binding.addBasketButton.setOnClickListener {
+            val globalBasket = viewModel.basketItems.value
+            if (globalBasket != null && globalBasket.isNotEmpty()) {
+                viewModel.purchaseItems(customShopRecyclerAdapter)
+                Toast.makeText(context, "Added to basket", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        viewModel.basketPrice.observe(viewLifecycleOwner) {
+            val totalText = "Total: %.2f €".format(abs(it))
+            binding.basketPrice.text = totalText
+        }
+
         setup()
     }
 
     private fun setup() {
-        val itemPrice = viewModel.basketPrice.value ?: 0.0
-        val totalText = "Total: %.2f €".format(itemPrice)
-        binding.basketPrice.text = totalText
-
         setupBasketLayout()
     }
 

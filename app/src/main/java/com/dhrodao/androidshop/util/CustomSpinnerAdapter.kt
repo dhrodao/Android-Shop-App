@@ -8,12 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.dhrodao.androidshop.items.BasketItems
+import com.dhrodao.androidshop.entities.Item
 import com.dhrodao.androidshop.main.R
 
 class CustomSpinnerAdapter(context : Context,
-                           resource: Int, objects: ArrayList<BasketItems>,
-) : ArrayAdapter<BasketItems>(context, resource, objects) {
+                           resource: Int, objects: List<Item>,
+) : ArrayAdapter<Item>(context, resource, objects) {
     private val layoutInflater : LayoutInflater = LayoutInflater.from(context)
     private var basketView : View? = null
 
@@ -46,7 +46,7 @@ class CustomSpinnerAdapter(context : Context,
     }
 
     // Get an item from the list
-    override fun getItem(position: Int): BasketItems? {
+    override fun getItem(position: Int): Item? {
         if (position == 0) {  // Show "Selecciona un ítem"
             return null
         }
@@ -56,12 +56,12 @@ class CustomSpinnerAdapter(context : Context,
 
     override fun getCount() = super.getCount() + 1
 
-    private fun setItemView(rootView: View, item : BasketItems) {
+    private fun setItemView(rootView: View, item : Item) {
         val icon = rootView.findViewById<ImageView>(R.id.image)
         val fruit = rootView.findViewById<TextView>(R.id.text)
 
         item.icon.let { icon?.setImageResource(it) }
-        fruit?.text = item.item
+        fruit?.text = item.name
     }
 
     private fun generateSeparator(
@@ -83,12 +83,12 @@ class CustomSpinnerAdapter(context : Context,
         return layerDrawable
     }
 
-    private fun setBasketView(item : BasketItems) {
+    private fun setBasketView(item : Item) {
         val icon = basketView?.findViewById<ImageView>(R.id.image)
         val fruit = basketView?.findViewById<TextView>(R.id.text)
 
         item.icon.let { icon?.setImageResource(it) }
-        fruit?.text = item.item
+        fruit?.text = item.name
     }
 
     fun getBasketView() : View? {
