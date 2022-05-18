@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/landingFragment"
+        android:tooltipText="@string/toolbar_inicio"
+        android:title="@string/toolbar_inicio"/>
+
+    <item android:title="@string/shop_toolbar">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/fruitShopFragment"
+                    app:showAsAction="ifRoom"
+                    android:title="@string/toolbar_fruit_shop" />
+                <item android:id="@+id/sportsShopFragment"
+                    app:showAsAction="ifRoom"
+                    android:title="@string/toolbar_sports_shop" />
+                <item android:id="@+id/butcherShopFragment"
+                    app:showAsAction="ifRoom"
+                    android:title="@string/butcher_shop_text" />
+                <item android:id="@+id/fishShopFragment"
+                    app:showAsAction="ifRoom"
+                    android:title="@string/fish_shop_title" />
+                <item android:id="@+id/globalBasketFragment"
+                    app:showAsAction="ifRoom"
+                    android:title="@string/global_basket_text" />
+                <item android:id="@+id/ordersFragment"
+                    app:showAsAction="ifRoom"
+                    android:title="@string/order_basket_text" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="@string/communications_toolbar">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/chatFragment"
+                    app:showAsAction="ifRoom"
+                    android:title="@string/toolbar_chat" />
+                <item
+                    android:id="@+id/sentMessagesFragment"
+                    app:showAsAction="ifRoom"
+                    android:title="@string/toolbar_messages_sent" />
+                <item android:id="@+id/inboxFragment"
+                    app:showAsAction="ifRoom"
+                    android:title="@string/toolbar_inbox" />
+            </group>
+        </menu>
+    </item>
+</menu>

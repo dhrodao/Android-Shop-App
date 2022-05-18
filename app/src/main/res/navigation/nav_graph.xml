@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+    <fragment
+        android:id="@+id/landingFragment"
+        android:name="com.dhrodao.androidshop.fragment.landing.LandingFragment"
+        android:label="Inicio"
+        tools:layout="@layout/fragment_landing" >
+        <action
+            android:id="@+id/action_landingFragment_to_fruitShopFragment"
+            app:destination="@id/fruitShopFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_chatFragment2"
+            app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_sentMessagesFragment"
+            app:destination="@id/sentMessagesFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_inboxFragment"
+            app:destination="@id/inboxFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_sportsShopFragment"
+            app:destination="@id/sportsShopFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_butcherShopFragment"
+            app:destination="@id/butcherShopFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_fishShopFragment"
+            app:destination="@id/fishShopFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_globalBasketFragment"
+            app:destination="@id/globalBasketFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_ordersFragment"
+            app:destination="@id/ordersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fruitShopFragment"
+        android:name="com.dhrodao.androidshop.fragment.fruitshop.FruitShopFragment"
+        android:label="Frutería"
+        tools:layout="@layout/fragment_fruit_shop" >
+        <action
+            android:id="@+id/action_fruitShopFragment_to_landingFragment"
+            app:destination="@id/landingFragment" />
+        <action
+            android:id="@+id/action_fruitShopFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+        <action
+            android:id="@+id/action_fruitShopFragment_to_chatFragment2"
+            app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_fruitShopFragment_to_sportsShopFragment"
+            app:destination="@id/sportsShopFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.dhrodao.androidshop.fragment.login.LoginFragment"
+        android:label="Inicio de sesión" >
+        <action
+            android:id="@+id/action_loginFragment_to_landingFragment"
+            app:destination="@id/landingFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDetailsFragment"
+        android:name="com.dhrodao.androidshop.fragment.productdetails.ProductDetailsFragment"
+        android:label="Detalles"
+        tools:layout="@layout/fragment_product_details" >
+        <action
+            android:id="@+id/action_productDetailsFragment_to_fruitShopFragment"
+            app:destination="@id/fruitShopFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/fruitShopFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="itemType"
+            app:argType="com.dhrodao.androidshop.items.ItemTypes" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.dhrodao.androidshop.fragment.chat.ChatFragment"
+        android:label="Chat"
+        tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/action_chatFragment_to_sportsShopFragment"
+            app:destination="@id/sportsShopFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sentMessagesFragment"
+        android:name="com.dhrodao.androidshop.fragment.sentmessages.SentMessagesFragment"
+        android:label="Mensajes enviados" >
+        <action
+            android:id="@+id/action_sentMessagesFragment_to_landingFragment"
+            app:destination="@id/landingFragment" />
+        <action
+            android:id="@+id/action_sentMessagesFragment_to_sportsShopFragment"
+            app:destination="@id/sportsShopFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/inboxFragment"
+        android:name="com.dhrodao.androidshop.fragment.inbox.InboxFragment"
+        android:label="Bandeja de entrada" >
+        <action
+            android:id="@+id/action_inboxFragment_to_sportsShopFragment"
+            app:destination="@id/sportsShopFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sportsShopFragment"
+        android:name="com.dhrodao.androidshop.fragment.sportsshop.SportsShopFragment"
+        android:label="Tienda de deportes">
+        <action
+            android:id="@+id/action_sportsShopFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/butcherShopFragment"
+        android:name="com.dhrodao.androidshop.fragment.butchershop.ButcherShopFragment"
+        android:label="Carnicería" >
+        <action
+            android:id="@+id/action_butcherShopFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fishShopFragment"
+        android:name="com.dhrodao.androidshop.fragment.fishshop.FishShopFragment"
+        android:label="Pescadería" >
+        <action
+            android:id="@+id/action_fishShopFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/globalBasketFragment"
+        android:name="com.dhrodao.androidshop.fragment.globalbasket.GlobalBasketFragment"
+        android:label="Carrito global" >
+        <action
+            android:id="@+id/action_globalBasketFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.dhrodao.androidshop.fragment.orders.OrdersFragment"
+        android:label="Pedidos"
+        tools:layout="@layout/fragment_orders" />
+</navigation>

@@ -1,6 +1,6 @@
 # AndroidFruitSelector
 
-Práctica 1 - Sistemas Móviles y Ubicuos
+# Práctica 1 - Sistemas Móviles y Ubicuos
 
 This application has been designed with the purpose of creating an online Fruit Shop, it contains a fruit selector,
 an item SeekBar and a basket item list where the basket items are displayed.
@@ -63,3 +63,44 @@ This is a data class which holds a basket item data.
 
 <img src="https://github.com/dhrodao/AndroidFruitSelector/blob/master/docs/landscape.png" alt="Demo lands" data-canonical-src="docs/screenshot.png" width="300"/>
 <img src="https://github.com/dhrodao/AndroidFruitSelector/blob/master/docs/landscape_popup.png" alt="Demo lands popup" data-canonical-src="docs/screenshot.png" width="300"/>
+
+# Práctica 2 - Sistemas Móviles y Ubicuos
+
+The design of this application is based on the previous one, but this time I have implemented some new shops that are based on the fruit shop model. Also, I have added a demo chat,
+inbox and sent messages screens.
+
+## Data persistence
+
+For the UI items persistent along the execution of the application, I have implemented a MainViewModel which holds an instance of a ShopViewModel class for each shop that I've added.
+It also holds the current global basket items and the current global basket price.
+
+## Login
+
+This is a demo login which has a username field and stores the username from the input in the MainViewModel "username" variable. From this fragment the user is redirected to the landing page.
+
+## Landing page
+
+This is a simple plage which show the store image, a welcome text for the user and a simple description of the app.
+
+## Product details fragment
+
+For this section I have implemented a ProductDetailsFragment which will be the one that will be displayed when the user clicks on a product item. This fragment will show
+a picture of the product, its name and its price. It receives a bundle which contains the ItemType thas has been selected, and with this information it will get the correct 
+ViewModel from the MainViewModel in order to get the current selected item, stored in the \_selectedItem variable in the ViewModel.
+
+## Chat, Inbox and Sent Messages
+
+All this screens have been designed in the same way, I've designed a chat layout, a sent message layout and a received message layout. From now the messages are stored in an
+ArrayList of Message objects. Then, they are displayed on a RecyclerView applying the sent message layout of the received message layout depending if the username within the Message
+object is the same as the username stored in the MainViewModel or not.
+
+## Demo
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/Ir9hR1AvDXs/0.jpg)](https://www.youtube.com/watch?v=Ir9hR1AvDXs)
+
+# Práctica 3
+
+This exercise consists on implementing a database to the app using the Jetpack component of Android Room.
+Also is required to create a service which makes HTTP requests to a REST API for updating the products data.
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/olH2DbHzrtw/0.jpg)](https://www.youtube.com/watch?v=olH2DbHzrtw)

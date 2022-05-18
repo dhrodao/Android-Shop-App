@@ -1,0 +1,54 @@
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dhrodao.androidshop.fragment.chat.ChatFragment"
+    android:padding="15dp"
+    android:orientation="vertical">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chat_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <!-- Placeholder separator -->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/chat_separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/chat_separator_bg"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/chat_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/chat_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:autofillHints="message"
+            android:hint="@string/chat_input_hint"
+            android:inputType="text" />
+
+        <ImageButton
+            android:contentDescription="@string/chat_button_description"
+            android:id="@+id/chat_send_button"
+            android:contextClickable="true"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/send_icon"
+            android:background="@drawable/chat_send_button_bg"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
