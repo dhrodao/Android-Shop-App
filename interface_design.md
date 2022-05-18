@@ -13,6 +13,7 @@ secciones son:
    - Chat con administradores
    - Ver ofertas recibidas
    - Ver mensajes enviados
+   - Pedidos
 
 <img src="https://github.com/dhrodao/Android-Shop-App/blob/dev/docs/flujo-ui.jpg" alt="Demo vert" data-canonical-src="docs/screenshot.png" width="300"/>
 
