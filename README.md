@@ -97,3 +97,10 @@ object is the same as the username stored in the MainViewModel or not.
 ## Demo
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/Ir9hR1AvDXs/0.jpg)](https://www.youtube.com/watch?v=Ir9hR1AvDXs)
+
+# Práctica 3
+
+This exercise consists on implementing a database to the app using the Jetpack component of Android Room.
+Also is required to create a service which makes HTTP requests to a REST API for updating the products data.
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/olH2DbHzrtw/0.jpg)](https://www.youtube.com/watch?v=olH2DbHzrtw)
